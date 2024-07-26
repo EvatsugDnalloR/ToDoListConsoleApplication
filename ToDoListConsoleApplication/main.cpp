@@ -3,6 +3,5 @@
 
 int main()
 {
-	std::println("Nigga");
-	return 0;
+	return EXIT_SUCCESS;
 }
