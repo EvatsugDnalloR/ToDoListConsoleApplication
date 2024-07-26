@@ -1,11 +1,12 @@
 ﻿#pragma once
-#include <list>
+#include <vector>
+#include <sstream>
 #include "ToDo.h"
 
 class ReadFromFile
 {
-private:
-	std::list<ToDo> to_do_s_;
+static void PushToDo(std::string line, std::vector<ToDo>& todo_vector);
 
-	
+public:
+	static auto GetToDos(std::string input) -> std::vector<ToDo>;
 };
