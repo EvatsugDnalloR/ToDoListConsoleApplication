@@ -25,14 +25,14 @@ struct ToDo
 	 *
 	 * Should be printed as:
 	 *	"Finish the code [  ]", which means not marked as done yet.
-	 *	"Finish the code [ ✓ ]", which means marked as done.
+	 *	"Finish the code [ Done ]", which means marked as done.
 	 * @param os	the ostream to be overloaded
 	 * @param todo	the current ToDo class
 	 * @return 
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const ToDo& todo)
 	{
-		std::string status = todo.done ? "✓" : "";
+		std::string status = todo.done ? "Done" : "";
 		const std::string to_be_printed = std::format("{} [ {} ]", todo.msg, status);
 		os << to_be_printed;
 		return os;
