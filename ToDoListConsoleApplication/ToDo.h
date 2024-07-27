@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <format>
-#include <format>
 #include <string>
 
 /**
@@ -20,6 +19,7 @@ struct ToDo
 	{
 	}
 
+	// ReSharper disable once CommentTypo
 	/**
 	 * A helper function to overload the operator<< to print the ToDo struct.
 	 *
