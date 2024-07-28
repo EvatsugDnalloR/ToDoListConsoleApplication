@@ -5,6 +5,12 @@
 *.userosscache
 *.sln.docstates
 
+# a test file for ReadFromFIleTest.cpp
+ToDoListTest/do_not_exist.txt
+
+# the default specification file that the program should read each time
+ToDoListConsoleApplication/specification.txt	
+
 # Mono auto generated files
 mono_crash.*
 

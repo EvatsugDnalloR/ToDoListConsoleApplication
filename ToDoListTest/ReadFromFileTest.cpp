@@ -42,6 +42,9 @@ TEST(GetToDos, MultiToDos)
 	EXPECT_EQ(oss_tests.at(2).str(), "Leave this place. [  ]");
 }
 
+/**
+ * Test if GetToDos can return an empty vector if it receives and empty string.
+ */
 TEST(GetToDos, EmptyString)
 {
 	const std::string empty_msg{};
@@ -50,6 +53,9 @@ TEST(GetToDos, EmptyString)
 	EXPECT_TRUE(test_todo_vector.empty());
 }
 
+/**
+ * Test if GetToDos returns an exception if it receives a string in the wrong format.
+ */
 TEST(GetToDos, ExceptionCase)
 {
 	// ReSharper disable once StringLiteralTypo
@@ -62,4 +68,35 @@ TEST(GetToDos, ExceptionCase)
 	EXPECT_THROW(ReadFromFile::GetToDos(wrong_sharp_msg), std::runtime_error);
 	EXPECT_THROW(ReadFromFile::GetToDos(missing_boolean), std::runtime_error);
 	EXPECT_THROW(ReadFromFile::GetToDos(missing_sharp), std::runtime_error);
+}
+
+/**
+ * Test if FileToString can recognise the content of the existing txt files.
+ */
+TEST(FileToString, GeneralCase)
+{
+	const std::string filename1{ "test1.txt" };
+	const std::string filename2{ "test2.txt" };
+	const std::string filename3{ "test3.txt" };
+
+	const std::string test1{ "This is test 1, it should be like this." };
+	const std::string test2{ "This is ToDo 1, not done yet.#0\nAnd this should be ToDo 2.#1" };
+	const std::string test3{ "dkgshiofnesfheifdusjfnesjfhisenfoe" };
+
+	EXPECT_EQ(ReadFromFile::FileToString(filename1), test1);
+	EXPECT_EQ(ReadFromFile::FileToString(filename2), test2);
+	EXPECT_EQ(ReadFromFile::FileToString(filename3), test3);
+}
+
+/**
+ * Test if FileToString can handle a txt file that does not exist, and then
+ *		create a blank one of that name.
+ */
+TEST(FileToString, NoFileCase)
+{
+	const std::string blank_file_name{ "do_not_exist.txt" };
+	const std::string blank{};
+	EXPECT_EQ(ReadFromFile::FileToString(blank_file_name), blank);
+	const std::ifstream infile{ blank_file_name };
+	EXPECT_TRUE(infile);
 }
