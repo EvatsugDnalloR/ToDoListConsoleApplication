@@ -11,9 +11,6 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(NAME ToDoListTest COMMAND ${PROJECT_NAME})
 
-# Set the working directory for the tests
-#set_tests_properties(ToDoListTest PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ToDoListTest)
-
 # Add a custom command to copy the test_src folder to the build directory
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
