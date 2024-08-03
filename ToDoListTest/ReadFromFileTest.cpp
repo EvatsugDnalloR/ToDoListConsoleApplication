@@ -1,8 +1,6 @@
 #include "pch.h"
-
 #include <array>
-
-#include "../ToDoListConsoleApplication/ReadFromFile.cpp"
+#include "../ToDoList/ReadFromFile.cpp"
 
 /**
  * Test if a string containing one ToDo is able to be recognised successfully.
@@ -33,7 +31,7 @@ TEST(GetToDos, MultiToDos)
 
 	for (int i{}; i < oss_tests.size(); i++)
 	{
-		
+
 		oss_tests.at(i) << test_todo_vector.at(i);
 	}
 
@@ -59,7 +57,7 @@ TEST(GetToDos, EmptyString)
 TEST(GetToDos, ExceptionCase)
 {
 	// ReSharper disable once StringLiteralTypo
-	const std::string wrong_msg{"jdfnehfijfuwh  efef"};
+	const std::string wrong_msg{ "jdfnehfijfuwh  efef" };
 	const std::string wrong_sharp_msg{ "This is #a message#0." };
 	const std::string missing_boolean{ "This is a msg.#\nThis is the next message#1" };
 	const std::string missing_sharp{ "This is a message .0" };
@@ -75,13 +73,18 @@ TEST(GetToDos, ExceptionCase)
  */
 TEST(FileToString, GeneralCase)
 {
-	const std::string filename1{ "test1.txt" };
-	const std::string filename2{ "test2.txt" };
-	const std::string filename3{ "test3.txt" };
+	const std::string base_path{ "test_src/" };
+	const std::string filename1{ base_path + "test1.txt" };
+	const std::string filename2{ base_path + "test2.txt" };
+	const std::string filename3{ base_path + "test3.txt" };
 
-	const std::string test1{ "This is test 1, it should be like this." };
-	const std::string test2{ "This is ToDo 1, not done yet.#0\nAnd this should be ToDo 2.#1" };
-	const std::string test3{ "dkgshiofnesfheifdusjfnesjfhisenfoe" };
+    const std::string test1{ "This is test 1, it should be like this." };
+    const std::string test2{ "This is ToDo 1, not done yet.#0\nAnd this should be ToDo 2.#1" };
+    const std::string test3{ "dkgshiofnesfheifdusjfnesjfhisenfoe" };
+
+	const std::string content1 = ReadFromFile::FileToString(filename1);
+	const std::string content2 = ReadFromFile::FileToString(filename2);
+	const std::string content3 = ReadFromFile::FileToString(filename3);
 
 	EXPECT_EQ(ReadFromFile::FileToString(filename1), test1);
 	EXPECT_EQ(ReadFromFile::FileToString(filename2), test2);

@@ -1,4 +1,4 @@
-﻿#include <fstream>
+#include <fstream>
 #include <sstream>
 #include "ReadFromFile.h"
 
@@ -19,12 +19,12 @@
  * @post either the ToDo object converted from {line} string is inserted to
  *      the {todo_vector}, or a runtime_error has been thrown
  */
-void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
+    void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
 {
     const size_t pos = line.find('#');
     if (pos == std::string::npos)
     {
-	    throw std::runtime_error("Missing '#' character");
+        throw std::runtime_error("Missing '#' character");
     }
 
     const std::string msg = line.substr(0, pos);
@@ -60,7 +60,7 @@ void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
  */
 std::vector<ToDo> ReadFromFile::GetToDos(std::string input)
 {
-    if (input.empty()) 
+    if (input.empty())
     {
         return std::vector<ToDo>{};
     }
@@ -71,7 +71,7 @@ std::vector<ToDo> ReadFromFile::GetToDos(std::string input)
 
     while (std::getline(input_ref, line))
     {
-	    PushToDo(line, todo_vector);
+        PushToDo(line, todo_vector);
     }
 
     return todo_vector;
@@ -93,7 +93,7 @@ std::string ReadFromFile::FileToString(const std::string& filename)
      * If file doesn't exist, create it, a blank txt file
      *  and return an empty string.
      */
-    if (!infile) 
+    if (!infile)
     {
         std::ofstream outfile(filename);
         return "";

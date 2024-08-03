@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 #include <format>
 #include <string>
 
 /**
  * A TODO structure that represent each TODO.
  */
-struct ToDo
+	struct ToDo
 {
 	/**  The message of a TODO.	 */
 	std::string msg;
@@ -15,7 +15,7 @@ struct ToDo
 
 	ToDo(std::string msg, const bool done)
 		: msg(std::move(msg)),
-		  done(done)
+		done(done)
 	{
 	}
 
@@ -28,7 +28,7 @@ struct ToDo
 	 *	"Finish the code [ Done ]", which means marked as done.
 	 * @param os	the ostream to be overloaded
 	 * @param todo	the current ToDo class
-	 * @return 
+	 * @return
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const ToDo& todo)
 	{
