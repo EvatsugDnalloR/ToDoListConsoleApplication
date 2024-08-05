@@ -7,7 +7,7 @@
 const std::string kBasePath{ "test_src/write_to_file/" };
 
 /**
- * 
+ * Test if AddToDo can append a ToDo message to an empty file.
  */
 TEST(AddToDo, SuccessEmptyAppend)
 {
@@ -21,7 +21,8 @@ TEST(AddToDo, SuccessEmptyAppend)
 }
 
 /**
- * 
+ * Test if AddToDo can append a ToDo message to a file already contains
+ *		some ToDo messages.
  */
 TEST(AddToDo, SuccessNotEmptyAppend)
 {
@@ -35,7 +36,7 @@ TEST(AddToDo, SuccessNotEmptyAppend)
 }
 
 /**
- * 
+ * Test if AddToDo can throw an exception if the target file does not exist.
  */
 TEST(AddToDo, FileDoesNotExist)
 {
@@ -48,7 +49,8 @@ TEST(AddToDo, FileDoesNotExist)
 }
 
 /**
- * 
+ * Test if AddToDo can throw an exception if the input string contains
+ *		any '#' character.
  */
 TEST(AddToDo, InputContiansSharp)
 {
@@ -61,7 +63,7 @@ TEST(AddToDo, InputContiansSharp)
 }
 
 /**
- * 
+ * Test if DeleteToDo can delete a single ToDo from some ToDos.
  */
 TEST(DeleteToDo, SimpleDeletion)
 {
@@ -75,7 +77,7 @@ TEST(DeleteToDo, SimpleDeletion)
 }
 
 /**
- * 
+ * Test if DeleteToDo can delete multiple ToDos from more ToDos.
  */
 TEST(DeleteToDo, ComplexDeletion)
 {
@@ -91,7 +93,8 @@ TEST(DeleteToDo, ComplexDeletion)
 }
 
 /**
- * 
+ * Test if DeleteToDo can throw an exception if the target line of ToDo
+ *		doesn't exist.
  */
 TEST(DeleteToDo, LineNotExist)
 {
@@ -103,7 +106,7 @@ TEST(DeleteToDo, LineNotExist)
 }
 
 /**
- * 
+ * Test if DeleteToDo can throw an exception if the target file does not exist.
  */
 TEST(DeleteToDo, FileNotExist)
 {
@@ -115,7 +118,7 @@ TEST(DeleteToDo, FileNotExist)
 }
 
 /**
- * 
+ * Test if MarkAsDone can modify the conditions of multiple ToDos.
  */
 TEST(MarkAsDone, SuccessMarking)
 {
@@ -130,7 +133,8 @@ TEST(MarkAsDone, SuccessMarking)
 }
 
 /**
- * 
+ * Test if MarkAsDone can throw an exception if the target line of ToDo
+ *		does not contain any '#' character.
  */
 TEST(MarkAsDone, InvalidToDo)
 {
@@ -142,7 +146,8 @@ TEST(MarkAsDone, InvalidToDo)
 }
 
 /**
- * 
+ * Test if MarkAsDone can throw an exception if the target line of ToDo
+ *		does not exist.
  */
 TEST(MarkAsDone, LineNotExist)
 {
@@ -154,7 +159,7 @@ TEST(MarkAsDone, LineNotExist)
 }
 
 /**
- * 
+ * Test if MarkAsDone can throw an exception if the target file does not exist.
  */
 TEST(MarkAsDone, FileNotExist)
 {
@@ -166,7 +171,7 @@ TEST(MarkAsDone, FileNotExist)
 }
 
 /**
- * 
+ * Test if ModifyToDoMsg can modify the message of a single ToDo.
  */
 TEST(ModifyToDoMsg, SingleModification)
 {
@@ -182,7 +187,7 @@ TEST(ModifyToDoMsg, SingleModification)
 }
 
 /**
- * 
+ * Test if ModifyToDoMsg can modify the messages of multiple ToDos.
  */
 TEST(ModifyToDoMsg, MultiModification)
 {
@@ -212,7 +217,8 @@ TEST(ModifyToDoMsg, MultiModification)
 }
 
 /**
- * 
+ * Test if ModifyToDoMsg can throw an exception if the modification message
+ *		contains any '#' character.
  */
 TEST(ModifyToDoMsg, MsgContiansSharp)
 {
@@ -225,6 +231,10 @@ TEST(ModifyToDoMsg, MsgContiansSharp)
 		std::invalid_argument);
 }
 
+/**
+ * Test if ModifyToDoMsg can throw an exception if the target line of ToDo
+ *		does not have a '#' character.
+ */
 TEST(ModifyToDoMsg, ToDoLineInvalid)
 {
 	const std::string filename{ "modify_test_invalid.txt" };
@@ -236,7 +246,8 @@ TEST(ModifyToDoMsg, ToDoLineInvalid)
 }
 
 /**
- * 
+ * Test if ModifyToDoMsg can throw an exception if the target line of ToDo
+ *		does not exist.
  */
 TEST(ModifyToDoMsg, LineNotExist)
 {
@@ -249,7 +260,7 @@ TEST(ModifyToDoMsg, LineNotExist)
 }
 
 /**
- * 
+ * Test if ModifyToDoMsg can throw an exception if the target file does not exist.
  */
 TEST(ModifyToDoMsg, FileNotExist)
 {

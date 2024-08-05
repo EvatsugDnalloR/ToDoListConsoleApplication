@@ -54,7 +54,7 @@ TEST(GetToDos, EmptyString)
 }
 
 /**
- * Test if GetToDos returns an exception if it receives a string in the wrong format.
+ * Test if GetToDos throws an exception if it receives a string in the wrong format.
  */
 TEST(GetToDos, ExceptionCase)
 {

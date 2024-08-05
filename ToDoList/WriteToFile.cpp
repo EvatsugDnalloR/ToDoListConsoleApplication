@@ -160,8 +160,10 @@ void WriteToFile::ModifyToDoMsg(const size_t chosen_line, std::string msg, const
 }
 
 /**
- * 
- * @param input 
+ * Check if the {input} string contains any '#' character,
+ *	if so throw an exception.
+ * @param input		the input string that should be checked 
+ * @throw invalid_argument	if the {input} string contains any '#' character
  */
 void WriteToFile::FindSharp(const std::string& input)
 {

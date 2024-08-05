@@ -43,8 +43,8 @@ public:
 
 private:
 	/**
-	 * 
-	 * @param input 
+	 * Check if the {input} string contains any '#' character.
+	 * @param input	the input string that should be checked 
 	 */
 	static void FindSharp(const std::string& input);
 
