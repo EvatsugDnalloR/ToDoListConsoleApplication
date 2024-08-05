@@ -5,7 +5,7 @@
 #include "../ToDoList/ReadFromFile.h"
 
 /**
- * Test if a string containing one ToDo is able to be recognised successfully.
+ * Test if a string containing one ToDo is recognised successfully.
  */
 TEST(GetToDos, SingleToDo)
 {

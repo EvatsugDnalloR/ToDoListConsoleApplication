@@ -9,6 +9,7 @@
 class WriteToFile
 {
 public:
+
 	/**
 	 * Static method that add a ToDo message to the {filename} txt,
 	 *		and it will be marked as not done by default.
@@ -42,13 +43,19 @@ public:
 
 private:
 	/**
-	 * Private auxiliary method that checks if the {}
-	 * @param filename 
+	 * 
+	 * @param input 
+	 */
+	static void FindSharp(const std::string& input);
+
+	/**
+	 * Private auxiliary method that checks if the {filename} exists or not.
+	 * @param filename	the txt file that we need to check the existence
 	 */
 	static void CheckExist(const std::string& filename);
 
 	/**
-	 * Private auxiliary method that checks if the {outfile} can be opened or not.
+	 * Private auxiliary method that checks if the {file} can be opened or not.
 	 * @param file	the file that we want to open and write to
 	 */
 	static void CheckIsOpen(const std::ofstream& file);
