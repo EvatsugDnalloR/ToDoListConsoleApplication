@@ -1,6 +1,8 @@
 #include "pch.h"
 #include <array>
-#include "../ToDoList/ReadFromFile.cpp"
+#include <fstream>
+#include <sstream>
+#include "../ToDoList/ReadFromFile.h"
 
 /**
  * Test if a string containing one ToDo is able to be recognised successfully.
@@ -73,7 +75,7 @@ TEST(GetToDos, ExceptionCase)
  */
 TEST(FileToString, GeneralCase)
 {
-	const std::string base_path{ "test_src/" };
+	const std::string base_path{ "test_src/read_from_file/" };
 	const std::string filename1{ base_path + "test1.txt" };
 	const std::string filename2{ base_path + "test2.txt" };
 	const std::string filename3{ base_path + "test3.txt" };

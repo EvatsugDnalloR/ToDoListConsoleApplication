@@ -12,14 +12,6 @@ static const std::string kFilename{ "specification.txt" };
  */
 class ReadFromFile
 {
-	/**
-	 * Private axillary method to make GetToDos vector function cleaner.
-	 * @param line	a line of the input stream from GetToDos
-	 * @param todo_vector	the vector that stores all the ToDos that
-	 *		will be returned by GetToDos
-	 */
-	static void PushToDo(std::string line, std::vector<ToDo>& todo_vector);
-
 public:
 	/**
 	 * Static method that get all the ToDos from the string obtained from
@@ -39,4 +31,13 @@ public:
 	 * @return	A string that contains what is in the txt file
 	 */
 	static auto FileToString(const std::string& filename) -> std::string;
+
+private:
+	/**
+	* Private axillary method to make GetToDos vector function cleaner.
+	* @param line	a line of the input stream from GetToDos
+	* @param todo_vector	the vector that stores all the ToDos that
+	*		will be returned by GetToDos
+	*/
+	static void PushToDo(std::string line, std::vector<ToDo>& todo_vector);
 };

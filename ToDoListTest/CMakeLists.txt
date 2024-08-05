@@ -2,7 +2,13 @@ cmake_minimum_required (VERSION 3.20.2)
 
 project(ToDoListTest)
 
-add_executable(${PROJECT_NAME} "pch.h" "ToDoTest.cpp" "ReadFromFileTest.cpp")
+set(ToDoListTest_Src
+    pch.h
+    ToDoTest.cpp
+    ReadFromFileTest.cpp
+)
+
+add_executable(${PROJECT_NAME} ${ToDoListTest_Src} "WriteToFileTest.cpp")
 
 target_link_libraries(${PROJECT_NAME} 
 	ToDoList 

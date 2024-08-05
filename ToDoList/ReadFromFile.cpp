@@ -2,47 +2,7 @@
 #include <sstream>
 #include "ReadFromFile.h"
 
-/**
- * Auxiliary method that try to turn a line of the string obtained from
- *      the txt file into a ToDo object, and insert it into the
- *      vector object that should be returned by GetToDos.
- * @param line  a line from the {input} string from GetToDos
- * @param todo_vector   the vector that should get the ToDo object
- *      converted from the line string, parsed as a reference such that
- *      the modification inside of this function can be reflected back to
- *      the {GetToDos} function
- * @pre the {line} string is following the correct format to initiate a ToDo object
- * @throw runtime_error     if '#' character is not in {line} string
- * @throw runtime_error     if nothing after the '#' character
- * @throw runtime_error     if the character after '#' is not '0' or '1',
- *      which indicates the {done} boolean of a ToDo object
- * @post either the ToDo object converted from {line} string is inserted to
- *      the {todo_vector}, or a runtime_error has been thrown
- */
-    void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
-{
-    const size_t pos = line.find('#');
-    if (pos == std::string::npos)
-    {
-        throw std::runtime_error("Missing '#' character");
-    }
 
-    const std::string msg = line.substr(0, pos);
-    if (line.size() <= pos + 1)
-    {
-        throw std::runtime_error("Missing status value after '#' character");
-    }
-
-    const char status_char = line[pos + 1];
-    if (status_char != '0' && status_char != '1')
-    {
-        throw std::runtime_error("Invalid status value after '#' character");
-    }
-
-    const bool done = (status_char == '1');
-    const ToDo to_do{ msg, done };
-    todo_vector.push_back(to_do);
-}
 
 /**
  * The method that convert all the ToDos in the {input} string converted from
@@ -75,6 +35,48 @@ std::vector<ToDo> ReadFromFile::GetToDos(std::string input)
     }
 
     return todo_vector;
+}
+
+/**
+ * Auxiliary method that try to turn a line of the string obtained from
+ *      the txt file into a ToDo object, and insert it into the
+ *      vector object that should be returned by GetToDos.
+ * @param line  a line from the {input} string from GetToDos
+ * @param todo_vector   the vector that should get the ToDo object
+ *      converted from the line string, parsed as a reference such that
+ *      the modification inside of this function can be reflected back to
+ *      the {GetToDos} function
+ * @pre the {line} string is following the correct format to initiate a ToDo object
+ * @throw runtime_error     if '#' character is not in {line} string
+ * @throw runtime_error     if nothing after the '#' character
+ * @throw runtime_error     if the character after '#' is not '0' or '1',
+ *      which indicates the {done} boolean of a ToDo object
+ * @post either the ToDo object converted from {line} string is inserted to
+ *      the {todo_vector}, or a runtime_error has been thrown
+ */
+void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
+{
+    const size_t pos = line.find('#');
+    if (pos == std::string::npos)
+    {
+        throw std::runtime_error("Missing '#' character");
+    }
+
+    const std::string msg = line.substr(0, pos);
+    if (line.size() <= pos + 1)
+    {
+        throw std::runtime_error("Missing status value after '#' character");
+    }
+
+    const char status_char = line[pos + 1];
+    if (status_char != '0' && status_char != '1')
+    {
+        throw std::runtime_error("Invalid status value after '#' character");
+    }
+
+    const bool done = (status_char == '1');
+    const ToDo to_do{ msg, done };
+    todo_vector.push_back(to_do);
 }
 
 /**
