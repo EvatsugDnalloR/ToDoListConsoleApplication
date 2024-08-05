@@ -17,11 +17,21 @@ TEST(AddToDo, SuccessAppend)
 
 TEST(DeleteToDo, SuccessDeletion)
 {
-	constexpr size_t chosen_line{ 0 };
 	const std::string filename{ "delete_todo_test.txt" };
 
-	WriteToFile::DeleteToDo(chosen_line, std::format("{}{}", kBasePath, filename));
+	WriteToFile::DeleteToDo(0, std::format("{}{}", kBasePath, filename));
 
 	EXPECT_EQ("This is the second ToDo msg.#1\n",
+		ReadFromFile::FileToString(std::format("{}{}", kBasePath, filename)));
+}
+
+TEST(MarkAsDone, SuccessMarking)
+{
+	const std::string filename{ "mark_as_done_test.txt" };
+
+	WriteToFile::MarkAsDone(0, std::format("{}{}", kBasePath, filename));
+	WriteToFile::MarkAsDone(1, std::format("{}{}", kBasePath, filename));
+
+	EXPECT_EQ("This one should be done after.#1\nThis one should be marked undone#0\nThis one should not be changed ! #1\n",
 		ReadFromFile::FileToString(std::format("{}{}", kBasePath, filename)));
 }

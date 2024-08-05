@@ -6,9 +6,10 @@ set(ToDoListTest_Src
     pch.h
     ToDoTest.cpp
     ReadFromFileTest.cpp
+    WriteToFileTest.cpp
 )
 
-add_executable(${PROJECT_NAME} ${ToDoListTest_Src} "WriteToFileTest.cpp")
+add_executable(${PROJECT_NAME} ${ToDoListTest_Src})
 
 target_link_libraries(${PROJECT_NAME} 
 	ToDoList 
