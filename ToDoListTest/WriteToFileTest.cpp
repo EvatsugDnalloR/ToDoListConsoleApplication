@@ -35,3 +35,14 @@ TEST(MarkAsDone, SuccessMarking)
 	EXPECT_EQ("This one should be done after.#1\nThis one should be marked undone#0\nThis one should not be changed ! #1\n",
 		ReadFromFile::FileToString(std::format("{}{}", kBasePath, filename)));
 }
+
+TEST(ModifyToDoMsg, SuccessModification)
+{
+	const std::string filename{ "modify_test.txt" };
+	const std::string modify_msg{ "This line has been modified" };
+
+	WriteToFile::ModifyToDoMsg(0, modify_msg, std::format("{}{}", kBasePath, filename));
+
+	EXPECT_EQ(std::format("{}#0\nThis line should not be modified#1\n", modify_msg),
+		ReadFromFile::FileToString(std::format("{}{}", kBasePath, filename)));
+}

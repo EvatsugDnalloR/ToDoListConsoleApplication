@@ -2,8 +2,6 @@
 #include <sstream>
 #include "ReadFromFile.h"
 
-
-
 /**
  * The method that convert all the ToDos in the {input} string converted from
  *      the txt file to several ToDo objects, and put them all in a vector
