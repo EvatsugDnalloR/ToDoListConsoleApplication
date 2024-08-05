@@ -3,7 +3,7 @@
 #include "ToDo.h"
 
 
-/** The default name of the Specification file. */
+/** The default static name of the Specification file. */
 static const std::string kFilename{ "specification.txt" };
 
 /**
