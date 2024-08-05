@@ -38,6 +38,7 @@ Makefile
 *.log
 *.tmp
 *.bak
+*.bkp
 *.swp
 *.DS_Store
 Thumbs.db
