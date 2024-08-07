@@ -17,7 +17,19 @@ public:
 private:
 	void PrintToDos();
 
-	void PrintOptions();
+	static void PrintOptions();
 
-	void HandleUserInput(std::string& user_input);
+	void HandleUserInput(const std::string& user_input);
+
+	void HandleAddToDo();
+
+	void HandleDeleteToDo();
+
+	[[nodiscard]] std::vector<int> TakingDeleteParam(const std::string& user_input) const;
+
+	static std::string RemoveSpaces(const std::string& input);
+
+	void HandleMarkAsDone();
+
+	void HandleModifyMsg();
 };
