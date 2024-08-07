@@ -32,4 +32,8 @@ private:
 	void HandleMarkAsDone();
 
 	void HandleModifyMsg();
+
+	void ExitAndSave();
+
+	static void CleanConsole();
 };

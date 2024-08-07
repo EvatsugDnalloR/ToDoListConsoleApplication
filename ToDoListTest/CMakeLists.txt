@@ -7,6 +7,7 @@ set(ToDoListTest_Src
     ToDoTest.cpp
     ReadFromFileTest.cpp
     WriteToFileTest.cpp
+    MainFrameTest.cpp
 )
 
 add_executable(${PROJECT_NAME} ${ToDoListTest_Src})

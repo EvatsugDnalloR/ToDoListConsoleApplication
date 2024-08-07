@@ -1,10 +1,12 @@
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
 #include <print>
 
 #include <memory>
 #include <set>
 #include <sstream>
+#include <ranges>
 
 #include "MainFrame.h"
 #include "ReadFromFile.h"
@@ -19,12 +21,11 @@ MainFrame::MainFrame()
 	msg_ptr_ = nullptr;
 }
 
-
 void MainFrame::StartApp()
 {
 	while (!exit_)
 	{
-		//TODO: clear all the existing output of the terminal
+		CleanConsole();
 
 		if (!msg_ptr_)
 		{
@@ -61,7 +62,7 @@ void MainFrame::PrintToDos()
 		{
 			std::println("{}. {}", count, to_do);
 			count++;
-			//TODO: make the printed _ToDo_ prettier
+			//TODO: make the printed To_Do prettier
 		}
 	}
 }
@@ -82,21 +83,24 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 {
 	switch (user_input[0])
 	{
-		case "A":
+		case 'A':
 			HandleAddToDo();
 			break;
-		case "D":
+		case 'D':
 			HandleDeleteToDo();
 			break;
-		case "F":
+		case 'F':
 			HandleMarkAsDone();
 			break;
-		case "M":
+		case 'M':
 			HandleModifyMsg();
 			break;
-		default:
-			//TODO: implement default action
+		case 'E':
+			ExitAndSave();
 			break;
+		default:
+			msg_ptr_ = std::make_shared<std::string>(std::format(
+				"Invalid option entered, please enter the correct option..."));
 	}
 }
 
@@ -114,13 +118,13 @@ void MainFrame::HandleAddToDo()
 			}(),
 				kFilename);
 	}
-	catch (std::invalid_argument& e)
+	catch (const std::invalid_argument& e)
 	{
 		msg_ptr_ = std::make_shared<std::string>(std::format(
 			"Problem occurs with the entered ToDo message...\n"
 			"Details: {}", e.what()));
 	}
-	catch (std::runtime_error& e)
+	catch (const std::runtime_error& e)
 	{
 		std::println("Problem occurs with the specification file...");
 		std::println("Details: {}", e.what());
@@ -147,7 +151,7 @@ void MainFrame::HandleDeleteToDo()
 				return user_input;
 			}());
 	}
-	catch (std::invalid_argument& e)
+	catch (const std::invalid_argument& e)
 	{
 		msg_ptr_ = std::make_shared<std::string>(std::format(
 			"Problem occurs with the numbers of ToDo selected..."
@@ -209,9 +213,129 @@ std::string MainFrame::RemoveSpaces(const std::string& input)
 
 void MainFrame::HandleMarkAsDone()
 {
-	std::println("Please enter the number of the ToDo that you want to modify:");
+	std::println("Please enter the number of the ToDo that you want to mark or unmark:");
 
+	int chosen_number{-1};
+	bool to_be_continued = true;
 
+	try
+	{
+		chosen_number = []{
+			std::string input;
+			std::getline(std::cin, input);
+			return std::stoi(input);
+		}();
+	}
+	catch (const std::invalid_argument& e)
+	{
+		msg_ptr_ = std::make_shared<std::string>(std::format(
+			"Problem occurs when entering the number of the ToDo...\n"
+			"Details: ", e.what()));
+		to_be_continued = false;
+	}
+
+	if (to_be_continued)
+	{
+		try
+		{
+			WriteToFile::MarkAsDone(chosen_number - 1, kFilename);
+		}
+		catch (const std::invalid_argument& e)
+		{
+			msg_ptr_ = std::make_shared<std::string>(std::format(
+				"Problem occurs with the number of the ToDo entered...\n"
+				"Details: ", e.what()));
+		}
+		catch (const std::runtime_error& e)
+		{
+			std::println("Problems occurs with the specification file...");
+			std::println("Details: {}", e.what());
+			exit_ = true;
+		}
+	}
 }
 
+void MainFrame::HandleModifyMsg()
+{
+	std::println("Please enter the number of the ToDo that you want to modify:");
+
+	int chosen_number{-1};
+	bool to_be_continued = true;
+
+	try
+	{
+		chosen_number = [] {
+			std::string input;
+			std::getline(std::cin, input);
+			return std::stoi(input);
+			}();
+	}
+	catch (const std::invalid_argument& e)
+	{
+		msg_ptr_ = std::make_shared<std::string>(std::format(
+			"Problem occurs when entering the number of the ToDo...\n"
+			"Details: ", e.what()));
+		to_be_continued = false;
+	}
+
+	if (to_be_continued)
+	{
+		CleanConsole();
+
+		std::println("{}. {}", chosen_number - 1, to_do_s_.at(chosen_number - 1));
+
+		std::println("Please enter the message for replacement:");
+
+		std::string todo_msg;
+		std::getline(std::cin, todo_msg);
+
+		try
+		{
+			WriteToFile::ModifyToDoMsg(chosen_number - 1, todo_msg, kFilename);
+		}
+		catch (const std::invalid_argument& e)
+		{
+			msg_ptr_ = std::make_shared<std::string>(std::format(
+				"Problem occured with the entered parameter...\n"
+				"Details: {}", e.what()));
+		}
+		catch (const std::runtime_error& e)
+		{
+			std::println("Problems occurs with the specification file...");
+			std::println("Details: {}", e.what());
+			exit_ = true;
+		}
+	}
+}
+
+void MainFrame::ExitAndSave()
+{
+	std::println("Do you want to quit the program and save the specification file ? [y / n]");
+
+	std::string user_input;
+	std::getline(std::cin, user_input);
+
+	switch (user_input[0])
+	{
+		case 'y':
+			std::println("Exiting the program...");
+			exit_ = true;
+			break;
+		case 'n':
+			msg_ptr_ = std::make_shared<std::string>("Procedure to exit cancelled...");
+			break;
+		default:
+			msg_ptr_ = std::make_shared<std::string>("Invalid option, please enters 'y' or 'n'...");
+	}
+}
+
+
+void MainFrame::CleanConsole()
+{
+	#ifdef _WIN32
+		system("cls");
+	#else
+		system("clear");
+	#endif
+}
 

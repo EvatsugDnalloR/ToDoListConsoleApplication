@@ -11,12 +11,12 @@ project (ToDoListConsoleApplication)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(todolist main.cpp)
 
 add_subdirectory (ToDoList)
 add_subdirectory (ToDoListTest)
 
-target_link_libraries(${PROJECT_NAME} ToDoList)
+target_link_libraries(todolist ToDoList)
 
 if (NOT googletest) # is googletest defined if already built?
 	include(FetchContent)

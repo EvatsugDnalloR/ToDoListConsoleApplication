@@ -1,7 +1,8 @@
-#include <print>
+#include "ToDoList/MainFrame.h"
 
 int main(int argc, char* argv[])
 {
-	std::println("Hello Cmake");
+	MainFrame main_frame;
+	main_frame.StartApp();
 	return EXIT_SUCCESS;
 }
