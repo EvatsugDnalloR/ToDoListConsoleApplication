@@ -1,5 +1,13 @@
 #include "MainFrame.h"
 
+//TODO: fix the exception about {e.what()} problem
+//TODO: add checks about empty ToDoList before accessing Delete, Mark and Modify operation
+//TODO: make the output to be printed prettier
+//TODO: test the available methods of MainFrame
+
+/**
+ * 
+ */
 MainFrame::MainFrame()
 {
 	exit_ = false;
@@ -9,12 +17,18 @@ MainFrame::MainFrame()
 	msg_ptr_ = nullptr;
 }
 
+/**
+ * 
+ */
 void MainFrame::StartApp()
 {
 	while (!exit_)
 	{
 		CleanConsole();
 
+		/*
+		 * 
+		 */
 		if (msg_ptr_)
 		{
 			std::println("{}", *msg_ptr_);
@@ -25,7 +39,7 @@ void MainFrame::StartApp()
 
 		PrintOptions();
 
-		HandleUserInput([]
+		HandleUserInput([]	//...
 		{
 			std::string user_input;
 			std::getline(std::cin, user_input);
@@ -35,13 +49,16 @@ void MainFrame::StartApp()
 	}
 }
 
+/**
+ * 
+ */
 void MainFrame::PrintToDos()
 {
 	to_do_s_ = ReadFromFile::GetToDos(ReadFromFile::FileToString(kFilename));
 
 	if (to_do_s_.empty())
 	{
-		std::println("<<The ToDo list is still empty>>");
+		std::println("<<The ToDo list is empty>>");
 	}
 	else
 	{
@@ -55,6 +72,9 @@ void MainFrame::PrintToDos()
 	}
 }
 
+/**
+ * 
+ */
 void MainFrame::PrintOptions()
 {
 	using namespace std;
@@ -67,6 +87,10 @@ void MainFrame::PrintOptions()
 	//TODO: make the output prettier
 }
 
+/**
+ * 
+ * @param user_input 
+ */
 void MainFrame::HandleUserInput(const std::string& user_input)
 {
 	switch (user_input[0])
@@ -92,6 +116,9 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 	}
 }
 
+/**
+ * 
+ */
 void MainFrame::HandleAddToDo()
 {
 	std::println("Please add your ToDo message:");
@@ -121,6 +148,9 @@ void MainFrame::HandleAddToDo()
 
 }
 
+/**
+ * 
+ */
 void MainFrame::HandleDeleteToDo()
 {
 	std::println("Please enter the numbers of the ToDos that you want to delete:");
@@ -158,6 +188,11 @@ void MainFrame::HandleDeleteToDo()
 	}
 }
 
+/**
+ * 
+ * @param user_input 
+ * @return 
+ */
 std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) const
 {
 	const std::string trimmed_input{RemoveSpaces(user_input)};
@@ -192,6 +227,11 @@ std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) con
 	return numbers;
 }
 
+/**
+ * 
+ * @param input 
+ * @return 
+ */
 std::string MainFrame::RemoveSpaces(const std::string& input)
 {
 	std::string result = input;
@@ -199,6 +239,9 @@ std::string MainFrame::RemoveSpaces(const std::string& input)
 	return result;
 }
 
+/**
+ * 
+ */
 void MainFrame::HandleMarkAsDone()
 {
 	std::println("Please enter the number of the ToDo that you want to mark or unmark:");
@@ -243,6 +286,9 @@ void MainFrame::HandleMarkAsDone()
 	}
 }
 
+/**
+ * 
+ */
 void MainFrame::HandleModifyMsg()
 {
 	std::println("Please enter the number of the ToDo that you want to modify:");
@@ -296,6 +342,9 @@ void MainFrame::HandleModifyMsg()
 	}
 }
 
+/**
+ * 
+ */
 void MainFrame::ExitAndSave()
 {
 	std::println("Do you want to quit the program and save the specification file ? [y / n]");
@@ -318,6 +367,9 @@ void MainFrame::ExitAndSave()
 }
 
 
+/**
+ * 
+ */
 void MainFrame::CleanConsole()
 {
 	#ifdef _WIN32
@@ -326,4 +378,3 @@ void MainFrame::CleanConsole()
 		system("clear");
 	#endif
 }
-
