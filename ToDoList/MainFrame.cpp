@@ -1,16 +1,4 @@
-#include <algorithm>
-#include <cstdlib>
-#include <iostream>
-#include <print>
-
-#include <memory>
-#include <set>
-#include <sstream>
-#include <ranges>
-
 #include "MainFrame.h"
-#include "ReadFromFile.h"
-#include "WriteToFile.h"
 
 MainFrame::MainFrame()
 {
@@ -27,9 +15,9 @@ void MainFrame::StartApp()
 	{
 		CleanConsole();
 
-		if (!msg_ptr_)
+		if (msg_ptr_)
 		{
-			std::println(*msg_ptr_);
+			std::println("{}", *msg_ptr_);
 			msg_ptr_ = nullptr;
 		}
 
@@ -49,7 +37,7 @@ void MainFrame::StartApp()
 
 void MainFrame::PrintToDos()
 {
-	to_do_s_ = ReadFromFile::GetToDos(kFilename);
+	to_do_s_ = ReadFromFile::GetToDos(ReadFromFile::FileToString(kFilename));
 
 	if (to_do_s_.empty())
 	{
@@ -58,9 +46,9 @@ void MainFrame::PrintToDos()
 	else
 	{
 		int count{1};
-		for (auto to_do: to_do_s_)
+		for (const auto& to_do: to_do_s_)
 		{
-			std::println("{}. {}", count, to_do);
+			std::cout << count << ". " << to_do << "\n";
 			count++;
 			//TODO: make the printed To_Do prettier
 		}
@@ -282,8 +270,8 @@ void MainFrame::HandleModifyMsg()
 	{
 		CleanConsole();
 
-		std::println("{}. {}", chosen_number - 1, to_do_s_.at(chosen_number - 1));
-
+		std::cout << chosen_number - 1 << ". " << to_do_s_.at(chosen_number - 1);
+		std::println("");
 		std::println("Please enter the message for replacement:");
 
 		std::string todo_msg;

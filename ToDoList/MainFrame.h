@@ -3,6 +3,20 @@
 #include <vector>
 #include "ToDo.h"
 
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <print>
+#include <format>
+
+#include <memory>
+#include <set>
+#include <sstream>
+#include <ranges>
+
+#include "ReadFromFile.h"
+#include "WriteToFile.h"
+
 class MainFrame
 {
 	bool exit_;
