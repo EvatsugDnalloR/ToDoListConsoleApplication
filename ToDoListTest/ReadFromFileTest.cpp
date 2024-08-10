@@ -10,7 +10,7 @@ const static std::string kBasePath{ "test_src/read_from_file/" };
 TEST(GetToDos, SingleToDo)
 {
 	const std::string single_msg{ "Finish the code !#0" };
-	const std::vector<ToDo> test_todo_vector{ ReadFromFile::GetToDos(single_msg) };
+	const std::vector test_todo_vector{ ReadFromFile::GetToDos(single_msg) };
 
 	EXPECT_EQ(test_todo_vector.size(), 1);
 
@@ -25,7 +25,7 @@ TEST(GetToDos, SingleToDo)
 TEST(GetToDos, MultiToDos)
 {
 	const std::string multi_msg{ "Finish the code!#1\nDo this shit now.#0\nLeave this place.#0" };
-	const std::vector<ToDo> test_todo_vector{ ReadFromFile::GetToDos(multi_msg) };
+	const std::vector test_todo_vector{ ReadFromFile::GetToDos(multi_msg) };
 
 	EXPECT_EQ(std::size(test_todo_vector), 3);
 
@@ -48,7 +48,7 @@ TEST(GetToDos, MultiToDos)
 TEST(GetToDos, EmptyString)
 {
 	const std::string empty_msg{};
-	const std::vector<ToDo> test_todo_vector{ ReadFromFile::GetToDos(empty_msg) };
+	const std::vector test_todo_vector{ ReadFromFile::GetToDos(empty_msg) };
 
 	EXPECT_TRUE(test_todo_vector.empty());
 }

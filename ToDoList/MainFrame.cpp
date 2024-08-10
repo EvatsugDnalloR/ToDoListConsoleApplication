@@ -7,7 +7,6 @@
  *		TODO: add the UndoRedo feature to the program (perhaps by Command Pattern)
  */
 
-
 /**
  * The constructors that initialises the three variables of MainFrame class.
  */
@@ -477,4 +476,22 @@ void MainFrame::CleanConsole()
 bool MainFrame::GetExitSuccess() const
 {
 	return exit_success_;
+}
+
+/**
+ * 
+ * @param to_do_s 
+ */
+void MainFrame::SetToDoS(const std::vector<ToDo>& to_do_s)
+{
+	this->to_do_s_ = to_do_s;
+}
+
+/**
+ * 
+ * @return 
+ */
+std::vector<ToDo> MainFrame::GetToDoS() const
+{
+	return to_do_s_;
 }

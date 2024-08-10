@@ -57,6 +57,18 @@ public:
 	 */
 	[[nodiscard]] bool GetExitSuccess() const;
 
+	/**
+	 * 
+	 * @param to_do_s 
+	 */
+	void SetToDoS(const std::vector<ToDo>& to_do_s);
+
+	/**
+	 * 
+	 * @return 
+	 */
+	[[nodiscard]] std::vector<ToDo> GetToDoS() const;
+
 private:
 	/**
 	 * A private method that read the specification.txt file and prints
