@@ -29,3 +29,11 @@ if (NOT googletest) # is googletest defined if already built?
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 	FetchContent_MakeAvailable(googletest)
 endif()
+
+# Add a custom command to delete specification.txt if it exists
+add_custom_command(
+    TARGET todolist
+    PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_BINARY_DIR}/specification.txt
+    COMMENT "Removing specification.txt if it exists"
+)

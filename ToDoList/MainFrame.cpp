@@ -338,7 +338,7 @@ void MainFrame::HandleModifyMsg()
 	{
 		CleanConsole();
 
-		std::cout << chosen_number - 1 << ". " << to_do_s_.at(chosen_number - 1);
+		std::cout << chosen_number << ". " << to_do_s_.at(chosen_number - 1);
 		std::println("");
 		std::println("Please enter the message for replacement:");
 
