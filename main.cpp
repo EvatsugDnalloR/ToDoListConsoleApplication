@@ -4,5 +4,12 @@ int main(int argc, char* argv[])
 {
 	MainFrame main_frame;
 	main_frame.StartApp();
-	return EXIT_SUCCESS;
+	if (main_frame.GetExitSuccess())
+	{
+		return EXIT_SUCCESS;
+	}
+	else
+	{
+		return EXIT_FAILURE;
+	}
 }
