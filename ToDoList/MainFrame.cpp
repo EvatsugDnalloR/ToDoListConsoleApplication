@@ -233,23 +233,37 @@ void MainFrame::HandleDeleteToDo()
 }
 
 /**
- * 
- * @param user_input 
- * @return 
+ * Auxiliary method that allows the user to select multiple ToDos to
+ *		delete at once by following a specific format, where all the
+ *		input should be integers, and it should be separated by comma.
+ * @pre  {user_input} should only contain integers and commas
+ * @pre  {user_input} should not contain any duplicated integer
+ * @pre  \forall {i} \in {numbers} : {i} \in {1, ... , {to_do_s_}.size()}
+ * @param user_input	self explained...
+ * @throw invalid_argument	if there exists any character or float in {user_input}
+ * @throw invalid_argument	if the integers in {user_input} are not unique
+ * @throw invalid_argument	if any line number of To_Do in {numbers} is out of
+ *		range for deletion
+ * @return	{numbers} that contain all the line numbers of To_Do_s that
+ *		should be deleted.
+ * @post  {numbers} contains only unique integers
+ * @post  {numbers} only contains the line numbers of To_Do_s that exist and
+ *		can be deleted
  */
 std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) const
 {
 	const std::string trimmed_input{[user_input]
-	{
+	{	// remove all the spaces of the {user_input} for easier checking
 		std::string result = user_input;
 		std::erase(result, ' ');
 		return result;
 	}()};
 
 	std::stringstream ss(trimmed_input);
-	std::vector<int> numbers;
-	std::set<int> unique_numbers;
 	std::string token;
+
+	std::vector<int> numbers;
+	std::set<int> unique_numbers;	// for checking unique numbers
 
 	while (std::getline(ss, token, ','))
 	{
@@ -259,7 +273,7 @@ std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) con
 
 		const int number = std::stoi(token);
 
-		if (!unique_numbers.insert(number).second) {
+		if (!unique_numbers.insert(number).second) {  // if the insertion of set failed, then not unique numbers
 			throw std::invalid_argument("Duplicate number found: " + token);
 		}
 
@@ -267,7 +281,6 @@ std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) con
 	}
 
 	std::ranges::sort(numbers);
-
 	if (numbers.front() < 1 || numbers.back() > to_do_s_.size())
 	{
 		throw std::invalid_argument("Some selected numbers doesn't exists, please choose from the list.");
@@ -284,6 +297,7 @@ std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) con
  *		by 1 (such as formerly {1, 3, 5}, after the deletion of {1}, it should be
  *		{2, 4} left).
  * @pre  {to_be_deleted} is sorted (cannot be violated due to the TakingDeleteParam function)
+ * @pre  all the line number in {to_be_deleted} is in the range of {to_do_s_} (i.e. can be deletable)
  * @param to_be_deleted		the vector that contains all the line number of To_Do_s
  *		that should be deleted
  * @post  all the To_Do_s at the former lines in {to_be_deleted} should be deleted
