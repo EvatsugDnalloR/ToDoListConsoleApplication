@@ -1,7 +1,5 @@
 #include "MainFrame.h"
 
-//TODO: fix the exception about {e.what()} problem
-//TODO: add checks about empty ToDoList before accessing Delete, Mark and Modify operation
 //TODO: make the output to be printed prettier
 //TODO: test the available methods of MainFrame
 
@@ -99,20 +97,44 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 			HandleAddToDo();
 			break;
 		case 'D':
-			HandleDeleteToDo();
+			if (to_do_s_.empty())
+			{
+				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+					"please add some ToDo before deleting anything...");
+			}
+			else
+			{
+				HandleDeleteToDo();
+			}
 			break;
 		case 'F':
-			HandleMarkAsDone();
+			if (to_do_s_.empty())
+			{
+				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+					"please add some ToDo before marking anything...");
+			}
+			else
+			{
+				HandleMarkAsDone();
+			}
 			break;
 		case 'M':
-			HandleModifyMsg();
+			if (to_do_s_.empty())
+			{
+				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+					"please add some ToDo before modifying anything...");
+			}
+			else
+			{
+				HandleModifyMsg();
+			}
 			break;
 		case 'E':
 			ExitAndSave();
 			break;
 		default:
-			msg_ptr_ = std::make_shared<std::string>(std::format(
-				"Invalid option entered, please enter the correct option..."));
+			msg_ptr_ = std::make_shared<std::string>("Invalid option entered, "
+					"please enter the correct option...");
 	}
 }
 
@@ -261,7 +283,7 @@ void MainFrame::HandleMarkAsDone()
 	{
 		msg_ptr_ = std::make_shared<std::string>(std::format(
 			"Problem occurs when entering the number of the ToDo...\n"
-			"Details: ", e.what()));
+			"Details: {}", e.what()));
 		to_be_continued = false;
 	}
 
@@ -275,7 +297,7 @@ void MainFrame::HandleMarkAsDone()
 		{
 			msg_ptr_ = std::make_shared<std::string>(std::format(
 				"Problem occurs with the number of the ToDo entered...\n"
-				"Details: ", e.what()));
+				"Details: {}", e.what()));
 		}
 		catch (const std::runtime_error& e)
 		{
@@ -308,7 +330,7 @@ void MainFrame::HandleModifyMsg()
 	{
 		msg_ptr_ = std::make_shared<std::string>(std::format(
 			"Problem occurs when entering the number of the ToDo...\n"
-			"Details: ", e.what()));
+			"Details: {}", e.what()));
 		to_be_continued = false;
 	}
 
