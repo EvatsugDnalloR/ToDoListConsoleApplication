@@ -3,7 +3,7 @@
 #include "../ToDoList/ReadFromFile.h"
 #include "../ToDoList/WriteToFile.h"
 
-const std::string kBasePath{ "test_src/write_to_file/" };
+const static std::string kBasePath{ "test_src/write_to_file/" };
 
 /**
  * Test if AddToDo can append a ToDo message to an empty file.

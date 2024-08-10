@@ -3,6 +3,7 @@
 //TODO: make the output to be printed prettier
 //TODO: test the available methods of MainFrame
 
+
 /**
  * 
  */
@@ -81,7 +82,7 @@ void MainFrame::PrintOptions()
 	println("D - Delete any ToDo");
 	println("F - Mark or unmark any ToDo as done");
 	println("M - Modify any ToDo message");
-	println("E - Exit and save");
+	println("E - GetExit and save");
 	//TODO: make the output prettier
 }
 
@@ -167,7 +168,6 @@ void MainFrame::HandleAddToDo()
 		std::println("Details: {}", e.what());
 		exit_ = true;
 	}
-
 }
 
 /**
@@ -268,8 +268,8 @@ void MainFrame::HandleMarkAsDone()
 {
 	std::println("Please enter the number of the ToDo that you want to mark or unmark:");
 
-	int chosen_number{-1};
-	bool to_be_continued = true;
+	int chosen_number{-1};	//...
+	bool to_be_continued = true;	//...
 
 	try
 	{
@@ -399,4 +399,31 @@ void MainFrame::CleanConsole()
 	#else
 		system("clear");
 	#endif
+}
+
+/**
+ * A public getter of {exit_} variable for unit test purpose.
+ * @return	{this.exit_}
+ */
+bool MainFrame::GetExit() const
+{
+	return exit_;
+}
+
+/**
+ * A public getter of {to_do_s} variable for unit test purpose.
+ * @return	{this.to_do_s_}
+ */
+std::vector<ToDo> MainFrame::GetToDoS() const
+{
+	return to_do_s_;
+}
+
+/**
+ * A public getter of {msg_ptr_} variable for unit test purpose.
+ * @return	{this -> msg_prt_}
+ */
+std::shared_ptr<std::string> MainFrame::GetMsgPtr() const
+{
+	return msg_ptr_;
 }

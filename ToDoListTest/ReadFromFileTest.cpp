@@ -2,6 +2,8 @@
 #include "pch.h"
 #include "../ToDoList/ReadFromFile.h"
 
+const static std::string kBasePath{ "test_src/read_from_file/" };
+
 /**
  * Test if a string containing one ToDo is recognised successfully.
  */
@@ -73,10 +75,9 @@ TEST(GetToDos, ExceptionCase)
  */
 TEST(FileToString, GeneralCase)
 {
-	const std::string base_path{ "test_src/read_from_file/" };
-	const std::string filename1{ base_path + "test1.txt" };
-	const std::string filename2{ base_path + "test2.txt" };
-	const std::string filename3{ base_path + "test3.txt" };
+	const std::string filename1{ kBasePath + "test1.txt" };
+	const std::string filename2{ kBasePath + "test2.txt" };
+	const std::string filename3{ kBasePath + "test3.txt" };
 
     const std::string test1{ "This is test 1, it should be like this." };
     const std::string test2{ "This is ToDo 1, not done yet.#0\nAnd this should be ToDo 2.#1" };
@@ -97,7 +98,7 @@ TEST(FileToString, GeneralCase)
  */
 TEST(FileToString, NoFileCase)
 {
-	const std::string blank_file_name{ "do_not_exist.txt" };
+	const std::string blank_file_name{ kBasePath + "do_not_exist.txt" };
 	const std::string blank{};
 	EXPECT_EQ(ReadFromFile::FileToString(blank_file_name), blank);
 	const std::ifstream infile{ blank_file_name };
