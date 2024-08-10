@@ -400,30 +400,3 @@ void MainFrame::CleanConsole()
 		system("clear");
 	#endif
 }
-
-/**
- * A public getter of {exit_} variable for unit test purpose.
- * @return	{this.exit_}
- */
-bool MainFrame::GetExit() const
-{
-	return exit_;
-}
-
-/**
- * A public getter of {to_do_s} variable for unit test purpose.
- * @return	{this.to_do_s_}
- */
-std::vector<ToDo> MainFrame::GetToDoS() const
-{
-	return to_do_s_;
-}
-
-/**
- * A public getter of {msg_ptr_} variable for unit test purpose.
- * @return	{this -> msg_prt_}
- */
-std::shared_ptr<std::string> MainFrame::GetMsgPtr() const
-{
-	return msg_ptr_;
-}

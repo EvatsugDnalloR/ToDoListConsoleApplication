@@ -39,22 +39,21 @@ public:
 	void StartApp();
 
 	/**
-	 * A public getter of {exit_} variable for unit test purpose.
-	 * @return	{this.exit_}
+	 * A private auxiliary method that allows the user to select multiple ToDos
+	 *		to delete at once by following a specific format.
+	 * @param user_input	the user input that contains one or multiple number of ToDos
+	 * @return	a vector of integers that contains all the numbers of ToDos that
+	 *		should be deleted.
 	 */
-	[[nodiscard]] bool GetExit() const;
+	[[nodiscard]] std::vector<int> TakingDeleteParam(const std::string& user_input) const;
 
 	/**
-	 * A public getter of {to_do_s} variable for unit test purpose.
-	 * @return	{this.to_do_s_}
+	 * A private static auxiliary method that removes all the spaces of the user input
+	 *		to ease the format checking of the {TakingDeleteParam} method.
+	 * @param input		the same as in the param above
+	 * @return	the same string as {input} but without any spaces
 	 */
-	[[nodiscard]] std::vector<ToDo> GetToDoS() const;
-
-	/**
-	 * A public getter of {msg_ptr_} variable for unit test purpose.
-	 * @return	{this -> msg_prt_}
-	 */
-	[[nodiscard]] std::shared_ptr<std::string> GetMsgPtr() const;
+	static std::string RemoveSpaces(const std::string& input);
 
 private:
 	/**
@@ -86,23 +85,6 @@ private:
 	 *		the user want to delete, and delete them by calling {WriteToFile::DeleteToDo}.
 	 */
 	void HandleDeleteToDo();
-
-	/**
-	 * A private auxiliary method that allows the user to select multiple ToDos
-	 *		to delete at once by following a specific format.
-	 * @param user_input	the user input that contains one or multiple number of ToDos
-	 * @return	a vector of integers that contains all the numbers of ToDos that
-	 *		should be deleted.
-	 */
-	[[nodiscard]] std::vector<int> TakingDeleteParam(const std::string& user_input) const;
-
-	/**
-	 * A private static auxiliary method that removes all the spaces of the user input
-	 *		to ease the format checking of the {TakingDeleteParam} method.
-	 * @param input		the same as in the param above
-	 * @return	the same string as {input} but without any spaces
-	 */
-	static std::string RemoveSpaces(const std::string& input);
 
 	/**
 	 * A private method 
