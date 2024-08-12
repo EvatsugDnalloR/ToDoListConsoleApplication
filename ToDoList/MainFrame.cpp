@@ -118,7 +118,7 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 		case 'D':
 			if (to_do_s_.empty())
 			{
-				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+				msg_ptr_ = std::make_unique<std::string>("The ToDo List is still empty, "
 					"please add some ToDo before deleting anything...");
 			}
 			else
@@ -130,7 +130,7 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 		case 'F':
 			if (to_do_s_.empty())
 			{
-				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+				msg_ptr_ = std::make_unique<std::string>("The ToDo List is still empty, "
 					"please add some ToDo before marking anything...");
 			}
 			else
@@ -142,7 +142,7 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 		case 'M':
 			if (to_do_s_.empty())
 			{
-				msg_ptr_ = std::make_shared<std::string>("The ToDo List is still empty, "
+				msg_ptr_ = std::make_unique<std::string>("The ToDo List is still empty, "
 					"please add some ToDo before modifying anything...");
 			}
 			else
@@ -156,7 +156,7 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 			break;
 
 		default:
-			msg_ptr_ = std::make_shared<std::string>("Invalid option entered, "
+			msg_ptr_ = std::make_unique<std::string>("Invalid option entered, "
 					"please enter the correct option...");
 	}
 }
@@ -181,7 +181,7 @@ void MainFrame::HandleAddToDo()
 	}
 	catch (const std::invalid_argument& e)
 	{
-		msg_ptr_ = std::make_shared<std::string>(std::format(
+		msg_ptr_ = std::make_unique<std::string>(std::format(
 			"Problem occurs with the entered ToDo message...\n"
 			"Details: {}", e.what()));
 	}
@@ -219,7 +219,7 @@ void MainFrame::HandleDeleteToDo()
 	}
 	catch (const std::invalid_argument& e)
 	{
-		msg_ptr_ = std::make_shared<std::string>(std::format(
+		msg_ptr_ = std::make_unique<std::string>(std::format(
 			"Problem occurs with the numbers of ToDo selected..."
 			"Details: {}", e.what()));
 		to_be_continued = false;
@@ -350,7 +350,7 @@ void MainFrame::HandleMarkAsDone()
 	}
 	catch (const std::invalid_argument& e)
 	{
-		msg_ptr_ = std::make_shared<std::string>(std::format(
+		msg_ptr_ = std::make_unique<std::string>(std::format(
 			"Problem occurs when entering the number of the ToDo...\n"
 			"Details: {}", e.what()));
 		to_be_continued = false;
@@ -364,7 +364,7 @@ void MainFrame::HandleMarkAsDone()
 		}
 		catch (const std::invalid_argument& e)
 		{
-			msg_ptr_ = std::make_shared<std::string>(std::format(
+			msg_ptr_ = std::make_unique<std::string>(std::format(
 				"Problem occurs with the number of the ToDo entered...\n"
 				"Details: {}", e.what()));
 		}
@@ -402,7 +402,7 @@ void MainFrame::HandleModifyMsg()
 	}
 	catch (const std::invalid_argument& e)
 	{
-		msg_ptr_ = std::make_shared<std::string>(std::format(
+		msg_ptr_ = std::make_unique<std::string>(std::format(
 			"Problem occurs when entering the number of the ToDo...\n"
 			"Details: {}", e.what()));
 		to_be_continued = false;
@@ -425,7 +425,7 @@ void MainFrame::HandleModifyMsg()
 		}
 		catch (const std::invalid_argument& e)
 		{
-			msg_ptr_ = std::make_shared<std::string>(std::format(
+			msg_ptr_ = std::make_unique<std::string>(std::format(
 				"Problem occured with the entered parameter...\n"
 				"Details: {}", e.what()));
 		}
@@ -461,10 +461,10 @@ void MainFrame::ExitAndSave()
 			exit_ = true;
 			break;
 		case 'N':
-			msg_ptr_ = std::make_shared<std::string>("Procedure to exit cancelled...");
+			msg_ptr_ = std::make_unique<std::string>("Procedure to exit cancelled...");
 			break;
 		default:
-			msg_ptr_ = std::make_shared<std::string>("Invalid option, please enters 'y' or 'n'...");
+			msg_ptr_ = std::make_unique<std::string>("Invalid option, please enters 'y' or 'n'...");
 	}
 }
 

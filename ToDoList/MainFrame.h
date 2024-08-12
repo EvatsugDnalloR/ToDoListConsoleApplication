@@ -28,7 +28,7 @@ class MainFrame
 	 *		typically an error message.
 	 *	If no error message, it should be a {nullptr}.
 	 */
-	std::shared_ptr<std::string> msg_ptr_;
+	std::unique_ptr<std::string> msg_ptr_;
 
 public:
 	/**
