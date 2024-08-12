@@ -1,16 +1,16 @@
 #include "WriteToFile.h"
 
 /**
- * The method that add a ToDo message to the {filename} txt,
+ * The method that add a To_Do message to the {filename} txt,
  *		and it will be marked as not done by default.
  * @pre the {filename} txt exists and can be opened correctly
  * @pre the {input_todo} message doesn't contain '#' character
- * @param input_todo	the input ToDo message that need to be added
+ * @param input_todo	the input To_Do message that need to be added
  * @param filename	the txt file that needs to be written in
  * @throw invalid_argument	if {input_todo} message contains any '#' character
  * @throw runtime_error	if the {filename} txt does not exist or
  *		cannot be opened correctly
- * @post the {filename} txt contains the ToDO message of {input_todo} and
+ * @post the {filename} txt contains the To_DO message of {input_todo} and
  *		been marked as not done
  */
 void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
@@ -28,20 +28,20 @@ void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
 }
 
 /**
- * The method that delete the {chosen_line}-th line of ToDo
+ * The method that delete the {chosen_line}-th line of To_Do
  *		in the {filename} txt file.
  * Initialise a vector that contains each line of the {filename} txt,
- *		then delete the corresponding line of ToDo at the
+ *		then delete the corresponding line of To_Do at the
  *		{chosen_line} position of the vector, and finally write all lines
  *		in the vector back to the {filename} txt.
  * @pre the {filename} txt exists and can be opened correctly
  * @pre the {chosen_line} should be in the range of the size of the vector
- * @param chosen_line	the line that indicate which ToDo need to be deleted
+ * @param chosen_line	the line that indicate which To_Do need to be deleted
  * @param filename	the name of the txt file that needs to be written in
  * @throw invalid_argument	if {chosen_line} is out of range
  * @throw runtime_error	if the {filename} txt does not exist or
  *		cannot be opened correctly
- * @post the ToDo previously at the {chosen_line} position should
+ * @post the To_Do previously at the {chosen_line} position should
  *		no longer exists in the {filename} txt
  */
 void WriteToFile::DeleteToDo(const size_t chosen_line, const std::string& filename)
@@ -60,21 +60,21 @@ void WriteToFile::DeleteToDo(const size_t chosen_line, const std::string& filena
 }
 
 /**
- * The method that mark or unmark the chosen ToDo to be done.
- * If the condition of the ToDo is not done (i.e. #0), then mark as done (i.e. #1),
+ * The method that mark or unmark the chosen To_Do to be done.
+ * If the condition of the To_Do is not done (i.e. #0), then mark as done (i.e. #1),
  *		and vice or versa.
  * @pre the {filename} txt exists and can be opened correctly
  * @pre the {chosen_line} should be in the range of the size of the vector
- * @pre the ToDo message at the position {chosen_line} should contain a '#' character,
+ * @pre the To_Do message at the position {chosen_line} should contain a '#' character,
  *		and followed by either '0' or '1'
- * @param chosen_line	the line that indicate which ToDo need to be marked or unmarked
+ * @param chosen_line	the line that indicate which To_Do need to be marked or unmarked
  * @param filename	the txt file that needs to be written in
- * @throw runtime_error	if the {filename} txt does not exist or
- *		cannot be opened correctly, or the ToDo message doesn't
- *		contain a '#' character, or followed by
+ * @throw runtime_error	if the {filename} txt does not exist or cannot be opened correctly,
+ * @throw runtime_error if the To_Do line doesn't contain a '#' character,
+ * @throw runtime_error	if the '#' character of the To_Do line is followed by
  *		the character other than '0' and '1'
  * @throw invalid_argument	if {chosen_line} is out of range
- * @post the ToDo message at the {chosen_line} position has been marked as the
+ * @post the To_Do message at the {chosen_line} position has been marked as the
  *		opposite condition to before
  */
 void WriteToFile::MarkAsDone(const size_t chosen_line, const std::string& filename)
@@ -110,21 +110,21 @@ void WriteToFile::MarkAsDone(const size_t chosen_line, const std::string& filena
 }
 
 /**
- * The method that modifies the message of the chosen ToDo, and
+ * The method that modifies the message of the chosen To_Do, and
  *		keep the original condition of done or not done.
  * @pre the {filename} txt exists and can be opened correctly
  * @pre the {chosen_line} should be in the range of the size of the vector
  * @pre the input modification {msg} should not contain any '#' character
- * @pre the chosen ToDo message should contain a '#' character
- * @param chosen_line	the line that indicate which ToDo message need to be modified
+ * @pre the chosen To_Do message should contain a '#' character
+ * @param chosen_line	the line that indicate which To_Do message need to be modified
  * @param msg	the message that will be parsed in
  * @param filename	the txt file that needs to be written in
  * @throw runtime_error	if the {filename} txt does not exist or
- *		cannot be opened correctly, or the ToDo message
+ *		cannot be opened correctly, or the To_Do message
  *		doesn't contain a '#' character
  * @throw invalid_argument	if {chosen_line} is out of range
  *		or the {msg} string contains a '#' character
- * @post the ToDo at the {chosen_line} position should contain the new message of {msg},
+ * @post the To_Do at the {chosen_line} position should contain the new message of {msg},
  *		and having the same done or not done condition as before
  */
 void WriteToFile::ModifyToDoMsg(const size_t chosen_line, std::string msg, const std::string& filename)

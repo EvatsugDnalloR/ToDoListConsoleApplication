@@ -14,31 +14,31 @@ class WriteToFile
 public:
 
 	/**
-	 * Static method that add a ToDo message to the {filename} txt,
+	 * Static method that add a To_Do message to the {filename} txt,
 	 *		and it will be marked as not done by default.
-	 * @param input_todo	the input ToDo message that need to be added
+	 * @param input_todo	the input To_Do message that need to be added
 	 * @param filename		the txt file that needs to be written in
 	 */
 	static void AddToDo(std::string input_todo, const std::string& filename);
 
 	/**
-	 * Static method that delete the {chosen_line}-th line of ToDo
+	 * Static method that delete the {chosen_line}-th line of To_Do
 	 *		in the {filename} txt file.
-	 * @param chosen_line	the line that indicate which ToDo need to be deleted
+	 * @param chosen_line	the line that indicate which To_Do need to be deleted
 	 * @param filename		the txt file that needs to be written in
 	 */
 	static void DeleteToDo(size_t chosen_line, const std::string& filename);
 
 	/**
-	 * Static method that mark or unmark the chosen ToDo to be done.
-	 * @param chosen_line	the line that indicate which ToDo need to be marked or unmarked
+	 * Static method that mark or unmark the chosen To_Do to be done.
+	 * @param chosen_line	the line that indicate which To_Do need to be marked or unmarked
 	 * @param filename	the txt file that needs to be written in
 	 */
 	static void MarkAsDone(size_t chosen_line,const std::string& filename);
 
 	/**
-	 * Static method that modifies the message of the chosen ToDo.
-	 * @param chosen_line	the line that indicate which ToDo message need to be modified
+	 * Static method that modifies the message of the chosen To_Do.
+	 * @param chosen_line	the line that indicate which To_Do message need to be modified
 	 * @param msg	the message that will be parsed in
 	 * @param filename	the name of the txt file that needs to be written in
 	 */

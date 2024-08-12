@@ -2,16 +2,16 @@
 
 /**
  * The method that convert all the ToDos in the {input} string converted from
- *      the txt file to several ToDo objects, and put them all in a vector
+ *      the txt file to several To_Do objects, and put them all in a vector
  *      such that they can be iterated through.
  * @param input     the input string that contain all the ToDos
  * @pre {input} string should follow the correct format to initialise all
- *      the ToDo object, or it can be an empty string
- * @return  a vector that contains all the ToDo objects, or an empty vector if
+ *      the To_Do object, or it can be an empty string
+ * @return  a vector that contains all the To_Do objects, or an empty vector if
  *      the {input} string is empty
  * @throw runtime_error     if {input} stream doesn't follow the correct format, more
  *      details in the {PushToDo} function
- * @post either the vector that contains all the ToDo objects has been returned,
+ * @post either the vector that contains all the To_Do objects has been returned,
  *      or a runtime_error has been thrown
  */
 std::vector<ToDo> ReadFromFile::GetToDos(std::string input)
@@ -35,19 +35,19 @@ std::vector<ToDo> ReadFromFile::GetToDos(std::string input)
 
 /**
  * Auxiliary method that try to turn a line of the string obtained from
- *      the txt file into a ToDo object, and insert it into the
+ *      the txt file into a To_Do object, and insert it into the
  *      vector object that should be returned by GetToDos.
  * @param line  a line from the {input} string from GetToDos
- * @param todo_vector   the vector that should get the ToDo object
+ * @param todo_vector   the vector that should get the To_Do object
  *      converted from the line string, parsed as a reference such that
  *      the modification inside of this function can be reflected back to
  *      the {GetToDos} function
- * @pre the {line} string is following the correct format to initiate a ToDo object
+ * @pre the {line} string is following the correct format to initiate a To_Do object
  * @throw runtime_error     if '#' character is not in {line} string
  * @throw runtime_error     if nothing after the '#' character
  * @throw runtime_error     if the character after '#' is not '0' or '1',
- *      which indicates the {done} boolean of a ToDo object
- * @post either the ToDo object converted from {line} string is inserted to
+ *      which indicates the {done} boolean of a To_o object
+ * @post either the To_Do object converted from {line} string is inserted to
  *      the {todo_vector}, or a runtime_error has been thrown
  */
 void ReadFromFile::PushToDo(std::string line, std::vector<ToDo>& todo_vector)
