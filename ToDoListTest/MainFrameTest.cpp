@@ -4,9 +4,14 @@
 
 const static std::string kBasePath{ "test_src/main_frame/" };
 
+static MainFrame main_frame;	// static MainFrame object for all tests
+
+/**
+ * Test if {TakingDeleteParam} can handle the correct integer input in wrong order,
+ *		which should be sorted in the vector returned.
+ */
 TEST(TakingDeleteParam, GeneralCase1)
 {
-	MainFrame main_frame;
 	const std::string filename{ "taking_param_1.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
@@ -19,9 +24,11 @@ TEST(TakingDeleteParam, GeneralCase1)
 	}
 }
 
+/**
+ * Test if {TakingDeleteParam} cam handle the spaces inside the user input.
+ */
 TEST(TakingDeleteParam, GeneralCase2)
 {
-	MainFrame main_frame;
 	const std::string filename{ "taking_param_2.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
@@ -34,19 +41,25 @@ TEST(TakingDeleteParam, GeneralCase2)
 	}
 }
 
+/**
+ * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ *	 non-integer element.
+ */
 TEST(TakingDeleteParam, ExceptionCase1)
 {
-	MainFrame main_frame;
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
-	EXPECT_THROW(std::vector<int> result{ main_frame.TakingDeleteParam("1e, ddd3") },
+	EXPECT_THROW(std::vector<int> result{ main_frame.TakingDeleteParam("1e, 3.8") },
 		std::invalid_argument);
 }
 
+/**
+ * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ *	 duplicated integers.
+ */
 TEST(TakingDeleteParam, ExceptionCase2)
 {
-	MainFrame main_frame;
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
@@ -54,9 +67,12 @@ TEST(TakingDeleteParam, ExceptionCase2)
 		std::invalid_argument);
 }
 
+/**
+ * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ *   integer that is out of the range of {to_do_s_}.
+ */
 TEST(TakingDeleteParam, ExceptionCase3)
 {
-	MainFrame main_frame;
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
