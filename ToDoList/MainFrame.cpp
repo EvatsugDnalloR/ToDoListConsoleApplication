@@ -94,7 +94,7 @@ void MainFrame::PrintOptions()
 	println("D - Delete any ToDo");
 	println("F - Mark or unmark any ToDo as done");
 	println("M - Modify any ToDo message");
-	println("E - GetExit and save");
+	println("E - Exit and save");
 }
 
 /**
