@@ -58,16 +58,10 @@ public:
 	[[nodiscard]] bool GetExitSuccess() const;
 
 	/**
-	 * 
-	 * @param to_do_s 
+	 * A public setter for {to_do_s_} variable for unit test purpose
+	 * @param to_do_s	a vector of {To_Do} objects to initialise {to_do_s_} variable
 	 */
 	void SetToDoS(const std::vector<ToDo>& to_do_s);
-
-	/**
-	 * 
-	 * @return 
-	 */
-	[[nodiscard]] std::vector<ToDo> GetToDoS() const;
 
 private:
 	/**

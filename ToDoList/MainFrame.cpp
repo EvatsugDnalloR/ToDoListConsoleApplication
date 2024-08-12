@@ -14,7 +14,7 @@ MainFrame::MainFrame()
 {
 	exit_ = false;	// false at default, once true then the program ends
 
-	exit_success_ = true;	// true at default, if quit due to errors then will be set to false
+	exit_success_ = true;	// true at default, if quit due to fatal errors then false
 
 	to_do_s_ = {};	//empty at default, change according to the specification.txt file
 
@@ -195,8 +195,8 @@ void MainFrame::HandleAddToDo()
 }
 
 /**
- * A private method that asks the user to select the To_Do that
- *		the user want to delete, and delete them by calling {WriteToFile::DeleteToDo}.
+ * A private method that asks the user to select the To_Do that the user want to delete,
+ *		and delete them by calling {WriteToFile::DeleteToDo}.
  * @pre  {to_do_s} is not empty (cannot be violated dur to the {HandleUserInput} method)
  */
 void MainFrame::HandleDeleteToDo()
@@ -292,9 +292,9 @@ std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) con
  * Auxiliary method that perform the actual deletion of one or multiple To_Do_s selected.
  * Each line number of To_Do message selected is deviated by 1 at first place.
  * With the success deletion of the former To_Do_s, the line number of the
- *		rest of To_Do_s in the {to_be_deleted} vector will be further deviated
- *		by 1 (such as formerly {1, 3, 5}, after the deletion of {1}, it should be
- *		{2, 4} left).
+ *	 rest of To_Do_s in the {to_be_deleted} vector will be further deviated
+ *	 by 1 (such as formerly {1, 3, 5}, after the deletion of {1}, it should be
+ *	 {2, 4} left).
  * @pre  {to_be_deleted} is sorted (cannot be violated due to the TakingDeleteParam function)
  * @pre  all the line number in {to_be_deleted} is in the range of {to_do_s_} (i.e. can be deletable)
  * @param to_be_deleted		the vector that contains all the line number of To_Do_s
@@ -327,21 +327,25 @@ void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 }
 
 /**
- * 
+ * Method that ask the user to select one To_Do, and will mark that To_Do as done
+ *   or undone accordingly by calling {WriteToFile::MarkAsDone}.
+ * @pre  {to_do_s} is not empty (cannot be violated dur to the {HandleUserInput} method)
+ * @post  if the selected To_Do is marked as undone before, then it should be marked as done,
+ *		and vice or versa
  */
 void MainFrame::HandleMarkAsDone()
 {
 	std::println("Please enter the number of the ToDo that you want to mark or unmark:");
 
-	int chosen_number{-1};	//...
-	bool to_be_continued = true;	//...
+	int chosen_number{-1};	// initialised to an invalid number at first
+	bool to_be_continued = true;	// at default true, if invalid user input then false
 
 	try
 	{
 		chosen_number = []{
 			std::string input;
 			std::getline(std::cin, input);
-			return std::stoi(input);
+			return std::stoi(input);	// try to convert the user input to integer
 		}();
 	}
 	catch (const std::invalid_argument& e)
@@ -369,27 +373,31 @@ void MainFrame::HandleMarkAsDone()
 			std::println("Problems occurs with the specification file...");
 			std::println("Details: {}", e.what());
 			exit_ = true;
-			exit_success_ = false;
+			exit_success_ = false;	// quit due to fatal error that the file is corrupted
 		}
 	}
 }
 
 /**
- * 
+ * A private method that ask the user to select one To_Do, and also to enter the message
+ *   that the user want to replace with, then call {WriteToFile::ModifyToDoMsg}
+ *	 to complete the operation.
+ * @pre  {to_do_s} is not empty (cannot be violated dur to the {HandleUserInput} method)
+ * @post  the message of the selected To_Do should be replaced by the message input by the user
  */
 void MainFrame::HandleModifyMsg()
 {
-	std::println("Please enter the number of the ToDo that you want to modify:");
+	std::println("Please choose the number of the ToDo that you want to modify:");
 
-	int chosen_number{-1};
-	bool to_be_continued = true;
+	int chosen_number{-1};	// initialised to an invalid number at first
+	bool to_be_continued = true;	// at default true, if invalid user input then false
 
 	try
 	{
 		chosen_number = [] {
 			std::string input;
 			std::getline(std::cin, input);
-			return std::stoi(input);
+			return std::stoi(input);	// try to convert the user input to integer
 			}();
 	}
 	catch (const std::invalid_argument& e)
@@ -402,8 +410,8 @@ void MainFrame::HandleModifyMsg()
 
 	if (to_be_continued)
 	{
-		CleanConsole();
-
+		CleanConsole();	 
+		//clean the screen and reprint the selected To_Do for the user
 		std::cout << chosen_number << ". " << to_do_s_.at(chosen_number - 1);
 		std::println("");
 		std::println("Please enter the message for replacement:");
@@ -426,28 +434,33 @@ void MainFrame::HandleModifyMsg()
 			std::println("Problems occurs with the specification file...");
 			std::println("Details: {}", e.what());
 			exit_ = true;
-			exit_success_ = false;
+			exit_success_ = false;	// quit due to fatal error that the file is corrupted
 		}
 	}
 }
 
 /**
- * 
+ * Method that asks if the user want to exit or not, if so then quit the program.
  */
 void MainFrame::ExitAndSave()
 {
 	std::println("Do you want to quit the program and save the specification file ? [y / n]");
 
+	/*
+	 * Put the user input to upper cases to allows both lower and upper cases
+	 *   of 'y' and 'n' to be recognised.
+	 */
 	std::string user_input;
 	std::getline(std::cin, user_input);
+	std::ranges::transform(user_input, user_input.begin(), ::toupper);
 
 	switch (user_input[0])
 	{
-		case 'y':
+		case 'Y':
 			std::println("Exiting the program...");
 			exit_ = true;
 			break;
-		case 'n':
+		case 'N':
 			msg_ptr_ = std::make_shared<std::string>("Procedure to exit cancelled...");
 			break;
 		default:
@@ -457,12 +470,12 @@ void MainFrame::ExitAndSave()
 
 
 /**
- * 
+ * A static method that simply clean the output of the console on all platforms.
  */
 void MainFrame::CleanConsole()
 {
 	#ifdef _WIN32
-		system("cls");
+		system("cls");  // NOLINT(concurrency-mt-unsafe), since single_threaded...
 	#else
 		system("clear");
 	#endif
@@ -479,19 +492,10 @@ bool MainFrame::GetExitSuccess() const
 }
 
 /**
- * 
- * @param to_do_s 
+ * A public setter for {to_do_s_} variable for unit test purpose.
+ * @param to_do_s	a vector of {To_Do} objects to initialise {to_do_s_} variable
  */
 void MainFrame::SetToDoS(const std::vector<ToDo>& to_do_s)
 {
 	this->to_do_s_ = to_do_s;
-}
-
-/**
- * 
- * @return 
- */
-std::vector<ToDo> MainFrame::GetToDoS() const
-{
-	return to_do_s_;
 }
