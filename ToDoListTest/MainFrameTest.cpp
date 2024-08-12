@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "../ToDoList/MainFrame.h"
 
-const static std::string kBasePath{ "test_scr/main_frame/" };
+const static std::string kBasePath{ "test_src/main_frame/" };
 
 TEST(TakingDeleteParam, GeneralCase1)
 {
@@ -11,16 +11,9 @@ TEST(TakingDeleteParam, GeneralCase1)
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
 
-	int count{ 1 };
-	for (const auto& to_do : main_frame.GetToDoS())
-	{
-		std::cout << count << ". " << to_do << "\n";
-		count++;
-	}
-
-	const std::vector<int> result{ main_frame.TakingDeleteParam("3,2,1") };
+	const std::vector<int> result{ main_frame.TakingDeleteParam("3, 2, 1") };
 	constexpr std::array expected{ 1, 2, 3 };
-	for (size_t i = 0; i < result.size(); i++)
+	for (int i = 0; i < result.size(); i++)
 	{
 		EXPECT_EQ(expected.at(i), result.at(i));
 	}
@@ -33,15 +26,8 @@ TEST(TakingDeleteParam, GeneralCase2)
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
 
-	int count{ 1 };
-	for (const auto &to_do : main_frame.GetToDoS())
-	{
-		std::cout << count << ". " << to_do << "\n";
-		count++;
-	}
-
 	const std::vector<int> result{ main_frame.TakingDeleteParam("1,      3,   4") };
-	constexpr std::array expected{ 2, 3, 4 };
+	constexpr std::array expected{ 1, 3, 4 };
 	for (int i = 0; i < result.size(); i++)
 	{
 		EXPECT_EQ(expected.at(i), result.at(i));
