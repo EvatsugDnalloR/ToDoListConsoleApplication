@@ -6,7 +6,7 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project (ToDoListConsoleApplication)
+project (ToDoListConsoleApplication VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -37,3 +37,19 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_BINARY_DIR}/specification.txt
     COMMENT "Removing specification.txt if it exists"
 )
+
+install(TARGETS todolist DESTINATION bin)
+
+include(CPack)
+set(CPACK_PACKAGE_NAME "ToDoListConsoleApplication")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A simple ToDo list application for the terminal.")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
+
+# Detect platform and set CPack generator accordingly
+if (WIN32)
+    set(CPACK_GENERATOR "NSIS")
+else ()
+    set(CPACK_GENERATOR "TGZ")
+endif ()
