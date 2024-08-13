@@ -17,6 +17,9 @@ A robust C++ application functioned as a ToDo List application with console user
 ### Class Diagram
 ![class_diagram](/uml_diagrams/images/class_diagram.png)
 
+## Note
+This project uses C++ 23 features, so please make sure that your compiler or IDE supports C++ 23, such as MSVC or Mingw64, or just use Visual Studio 2022.
+
 
 ## Install
 ### Windows Installer
