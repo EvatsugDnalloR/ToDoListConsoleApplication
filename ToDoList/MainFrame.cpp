@@ -2,7 +2,6 @@
 
 /**
  * Further development:
- *		TODO: make the output to be printed prettier (especially PrintToDos and PrintOptions)
  *		TODO: add the logic to actually save and exit, otherwise abandon the specification file
  *		TODO: add the UndoRedo feature to the program (perhaps by Command Pattern)
  */
