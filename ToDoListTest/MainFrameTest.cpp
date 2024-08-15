@@ -7,16 +7,16 @@ const static std::string kBasePath{ "test_src/main_frame/" };
 static MainFrame main_frame;	// static MainFrame object for all tests
 
 /**
- * Test if {TakingDeleteParam} can handle the correct integer input in wrong order,
+ * Test if {TakingMultiParam} can handle the correct integer input in wrong order,
  *		which should be sorted in the vector returned.
  */
-TEST(TakingDeleteParam, GeneralCase1)
+TEST(TakingMultiParam, GeneralCase1)
 {
 	const std::string filename{ "taking_param_1.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
 
-	const std::vector<int> result{ main_frame.TakingDeleteParam("3, 2, 1") };
+	const std::vector<int> result{ main_frame.TakingMultiParam("3, 2, 1") };
 	constexpr std::array expected{ 1, 2, 3 };
 	for (int i = 0; i < result.size(); i++)
 	{
@@ -25,15 +25,15 @@ TEST(TakingDeleteParam, GeneralCase1)
 }
 
 /**
- * Test if {TakingDeleteParam} cam handle the spaces inside the user input.
+ * Test if {TakingMultiParam} cam handle the spaces inside the user input.
  */
-TEST(TakingDeleteParam, GeneralCase2)
+TEST(TakingMultiParam, GeneralCase2)
 {
 	const std::string filename{ "taking_param_2.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
 
-	const std::vector<int> result{ main_frame.TakingDeleteParam("1,      3,   4") };
+	const std::vector<int> result{ main_frame.TakingMultiParam("1,      3,   4") };
 	constexpr std::array expected{ 1, 3, 4 };
 	for (int i = 0; i < result.size(); i++)
 	{
@@ -42,40 +42,40 @@ TEST(TakingDeleteParam, GeneralCase2)
 }
 
 /**
- * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *	 non-integer element.
  */
-TEST(TakingDeleteParam, ExceptionCase1)
+TEST(TakingMultiParam, ExceptionCase1)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
-	EXPECT_THROW(std::vector<int> result{ main_frame.TakingDeleteParam("1e, 3.8") },
+	EXPECT_THROW(std::vector<int> result{ main_frame.TakingMultiParam("1e, 3.8") },
 		std::invalid_argument);
 }
 
 /**
- * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *	 duplicated integers.
  */
-TEST(TakingDeleteParam, ExceptionCase2)
+TEST(TakingMultiParam, ExceptionCase2)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
-	EXPECT_THROW(std::vector<int> result{ main_frame.TakingDeleteParam("1,3,3,4") },
+	EXPECT_THROW(std::vector<int> result{ main_frame.TakingMultiParam("1,3,3,4") },
 		std::invalid_argument);
 }
 
 /**
- * Test if {TakingDeleteParam} can throw an exception when the user input contains any
+ * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *   integer that is out of the range of {to_do_s_}.
  */
-TEST(TakingDeleteParam, ExceptionCase3)
+TEST(TakingMultiParam, ExceptionCase3)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
 		std::format("{}{}", kBasePath, filename))));
-	EXPECT_THROW(std::vector<int> result{ main_frame.TakingDeleteParam("1,3,3,100") },
+	EXPECT_THROW(std::vector<int> result{ main_frame.TakingMultiParam("1,3,3,100") },
 		std::invalid_argument);
 }

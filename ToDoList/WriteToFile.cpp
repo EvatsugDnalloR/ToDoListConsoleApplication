@@ -80,7 +80,7 @@ void WriteToFile::DeleteToDo(const size_t chosen_line, const std::string& filena
 void WriteToFile::MarkAsDone(const size_t chosen_line, const std::string& filename)
 {
 	CheckExist(filename);
-	std::vector<std::string> lines{ GetLines(filename) };
+	std::vector lines{ GetLines(filename) };
 
 	if (chosen_line >= lines.size())
 	{

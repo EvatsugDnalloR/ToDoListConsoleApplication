@@ -59,7 +59,7 @@ public:
 	 * @return	a vector of integers that contains all the numbers of ToDos that
 	 *		should be deleted.
 	 */
-	[[nodiscard]] std::vector<int> TakingDeleteParam(const std::string& user_input) const;
+	[[nodiscard]] std::vector<int> TakingMultiParam(const std::string& user_input) const;
 
 	/**
 	 * A public getter of {exit_success_} for the main.cpp to know if

@@ -216,7 +216,7 @@ void MainFrame::HandleDeleteToDo()
 
 	try
 	{
-		to_be_deleted = TakingDeleteParam([]
+		to_be_deleted = TakingMultiParam([]
 			{
 				std::string user_input;
 				std::getline(std::cin, user_input);
@@ -238,8 +238,8 @@ void MainFrame::HandleDeleteToDo()
 }
 
 /**
- * Auxiliary method that allows the user to select multiple ToDos to
- *		delete at once by following a specific format, where all the
+ * Auxiliary method that allows the user to select multiple ToDos
+ *		at once by following a specific format, where all the
  *		input should be integers, and it should be separated by comma.
  * @pre  {user_input} should only contain integers and commas
  * @pre  {user_input} should not contain any duplicated integer
@@ -252,10 +252,9 @@ void MainFrame::HandleDeleteToDo()
  * @return	{numbers} that contain all the line numbers of To_Do_s that
  *		should be deleted.
  * @post  {numbers} contains only unique integers
- * @post  {numbers} only contains the line numbers of To_Do_s that exist and
- *		can be deleted
+ * @post  {numbers} only contains the line numbers of To_Do_s that exist
  */
-std::vector<int> MainFrame::TakingDeleteParam(const std::string& user_input) const
+std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) const
 {
 	const std::string trimmed_input{[user_input]
 	{	// remove all the spaces of the {user_input} for easier checking
@@ -314,7 +313,7 @@ void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 	{
 		/*
 		 * The {invalid_argument} exception from DeleteToDo can be ignored
-		 *		since it has already been dealt with {TakingDeleteParam} function.
+		 *		since it has already been dealt with {TakingMultiParam} function.
 		 */
 		try
 		{
@@ -333,7 +332,7 @@ void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 }
 
 /**
- * Method that ask the user to select one To_Do, and will mark that To_Do as done
+ * Method that ask the user to select one or multiple To_Do, and will mark that To_Do as done
  *   or undone accordingly by calling {WriteToFile::MarkAsDone}.
  * @pre  {to_do_s} is not empty (cannot be violated dur to the {HandleUserInput} method)
  * @post  if the selected To_Do is marked as undone before, then it should be marked as done,
@@ -342,17 +341,20 @@ void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 void MainFrame::HandleMarkAsDone()
 {
 	std::println("Please enter the number of the ToDo that you want to mark or unmark:");
+	std::println("{}(multiple numbers are possible, separate the number by a comma)", kYellow);
+	std::println("(example: '1,3,4,5' , which will mark or unmark the first, third, fourth and the fifth ToDos){}", kReset);
 
-	int chosen_number{-1};	// initialised to an invalid number at first
+	std::vector<int> chosen_numbers{};	// initialised to an invalid number at first
 	bool to_be_continued = true;	// at default true, if invalid user input then false
 
 	try
 	{
-		chosen_number = []{
-			std::string input;
-			std::getline(std::cin, input);
-			return std::stoi(input);	// try to convert the user input to integer
-		}();
+		chosen_numbers = TakingMultiParam([]
+			{
+				std::string user_input;
+				std::getline(std::cin, user_input);
+				return user_input;
+			}());
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -366,7 +368,10 @@ void MainFrame::HandleMarkAsDone()
 	{
 		try
 		{
-			WriteToFile::MarkAsDone(chosen_number - 1, kFilename);
+			for (const auto& chosen_number : chosen_numbers)
+			{
+				WriteToFile::MarkAsDone(chosen_number - 1, kFilename);
+			}
 		}
 		catch (const std::invalid_argument& e)
 		{
