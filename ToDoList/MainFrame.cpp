@@ -36,7 +36,7 @@ void MainFrame::StartApp()
 		 */
 		if (msg_ptr_)
 		{
-			std::println("{}", *msg_ptr_);
+			std::println("{}{}{}{}", kRed, kBold, *msg_ptr_, kReset);
 			msg_ptr_ = nullptr;
 		}
 
@@ -68,9 +68,12 @@ void MainFrame::PrintToDos()
 	 */
 	to_do_s_ = ReadFromFile::GetToDos(ReadFromFile::FileToString(kFilename));
 
+	std::println("{}{}ToDo List:{}", kBlue, kBold, kReset);
+	std::println("-----------------------------");
+
 	if (to_do_s_.empty())
 	{
-		std::println("<<The ToDo list is empty>>");
+		std::println("{}<<The ToDo list is empty>>{}", kYellow, kReset);
 	}
 	else
 	{
@@ -89,12 +92,15 @@ void MainFrame::PrintToDos()
 void MainFrame::PrintOptions()
 {
 	using namespace std;
-	println("Available options:");
+	println("");
+	println("{}{}Available options:{}", kCyan, kBold, kReset);
+	println("-----------------------------");
 	println("A - Add a ToDo");
 	println("D - Delete any ToDo");
 	println("F - Mark or unmark any ToDo as done");
-	println("M - Modify any ToDo message");
+	println("M - Modify any ToDo message")	;
 	println("E - Exit and save");
+	println("-----------------------------");
 }
 
 /**
@@ -167,7 +173,7 @@ void MainFrame::HandleUserInput(const std::string& user_input)
  */
 void MainFrame::HandleAddToDo()
 {
-	std::println("Please add your ToDo message:");
+	std::println("{}{}Please add your ToDo message:{}", kCyan, kBold, kReset);
 
 	try
 	{
@@ -187,8 +193,8 @@ void MainFrame::HandleAddToDo()
 	}
 	catch (const std::runtime_error& e)
 	{
-		std::println("Problem occurs with the specification file...");
-		std::println("Details: {}", e.what());
+		std::println("{}Problem occurs with the specification file...", kRed);
+		std::println("Details: {}{}", e.what(), kReset);
 		exit_ = true;
 		exit_success_ = false;	// quit due to fatal error that the file is corrupted
 	}
@@ -201,9 +207,9 @@ void MainFrame::HandleAddToDo()
  */
 void MainFrame::HandleDeleteToDo()
 {
-	std::println("Please enter the numbers of the ToDos that you want to delete:");
-	std::println("(multiple numbers are possible, separate the number by a comma");
-	std::println("(example: '1,3,4,5' , which will delete the first, third, fourth and the fifth ToDos ))");
+	std::println("{}{}Please enter the numbers of the ToDos that you want to delete:{}", kCyan, kBold, kReset);
+	std::println("{}(multiple numbers are possible, separate the number by a comma)", kYellow);
+	std::println("(example: '1,3,4,5' , which will delete the first, third, fourth and the fifth ToDos){}", kReset);
 
 	std::vector<int> to_be_deleted;
 	bool to_be_continued = true;
@@ -220,7 +226,7 @@ void MainFrame::HandleDeleteToDo()
 	catch (const std::invalid_argument& e)
 	{
 		msg_ptr_ = std::make_unique<std::string>(std::format(
-			"Problem occurs with the numbers of ToDo selected..."
+			"Problem occurs with the numbers of ToDo selected...\n"
 			"Details: {}", e.what()));
 		to_be_continued = false;
 	}
@@ -316,8 +322,8 @@ void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 		}
 		catch (const std::runtime_error& e)
 		{
-			std::println("Problem occurs with the specification file...");
-			std::println("Details: {}", e.what());
+			std::println("{}Problem occurs with the specification file...", kRed);
+			std::println("Details: {}{}", e.what(), kReset);
 			exit_ = true;
 			exit_success_ = false;	// quit due to fatal error that the file is corrupted
 			break;
@@ -370,8 +376,8 @@ void MainFrame::HandleMarkAsDone()
 		}
 		catch (const std::runtime_error& e)
 		{
-			std::println("Problems occurs with the specification file...");
-			std::println("Details: {}", e.what());
+			std::println("{}Problems occurs with the specification file...", kRed);
+			std::println("Details: {}{}", e.what(), kReset);
 			exit_ = true;
 			exit_success_ = false;	// quit due to fatal error that the file is corrupted
 		}
@@ -412,9 +418,8 @@ void MainFrame::HandleModifyMsg()
 	{
 		CleanConsole();	 
 		//clean the screen and reprint the selected To_Do for the user
-		std::cout << chosen_number << ". " << to_do_s_.at(chosen_number - 1);
-		std::println("");
-		std::println("Please enter the message for replacement:");
+		std::cout << kGreen << chosen_number << ". " << to_do_s_.at(chosen_number - 1) << kReset << "\n";
+		std::println("{}Please enter the message for replacement:{}", kCyan, kReset);
 
 		std::string todo_msg;
 		std::getline(std::cin, todo_msg);
@@ -431,8 +436,8 @@ void MainFrame::HandleModifyMsg()
 		}
 		catch (const std::runtime_error& e)
 		{
-			std::println("Problems occurs with the specification file...");
-			std::println("Details: {}", e.what());
+			std::println("{}Problems occurs with the specification file...", kRed);
+			std::println("Details: {}{}", e.what(), kReset);
 			exit_ = true;
 			exit_success_ = false;	// quit due to fatal error that the file is corrupted
 		}
@@ -444,7 +449,7 @@ void MainFrame::HandleModifyMsg()
  */
 void MainFrame::ExitAndSave()
 {
-	std::println("Do you want to quit the program and save the specification file ? [y / n]");
+	std::println("{}{}Do you want to quit the program and save the specification file ? [y / n]{}", kCyan, kBold, kReset);
 
 	/*
 	 * Put the user input to upper cases to allows both lower and upper cases
@@ -457,7 +462,7 @@ void MainFrame::ExitAndSave()
 	switch (user_input[0])
 	{
 		case 'Y':
-			std::println("Exiting the program...");
+			std::println("{}Exiting the program...{}", kGreen, kReset);
 			exit_ = true;
 			break;
 		case 'N':

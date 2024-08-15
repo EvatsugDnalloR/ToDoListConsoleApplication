@@ -13,6 +13,17 @@
 #include "WriteToFile.h"
 #include "ToDo.h"
 
+// ANSI escape codes for colors
+const static std::string kReset = "\033[0m";
+const static std::string kRed = "\033[31m";
+const static std::string kGreen = "\033[32m";
+const static std::string kYellow = "\033[33m";
+const static std::string kBlue = "\033[34m";
+const static std::string kMagenta = "\033[35m";
+const static std::string kCyan = "\033[36m";
+const static std::string kBold = "\033[1m";
+const static std::string kUnderline = "\033[4m";
+
 class MainFrame
 {
 	/** The flag that determines if the program will exit or not.	 */
