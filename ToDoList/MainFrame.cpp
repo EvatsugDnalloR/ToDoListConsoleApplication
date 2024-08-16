@@ -453,7 +453,7 @@ void MainFrame::HandleModifyMsg()
  */
 void MainFrame::ExitAndSave()
 {
-	std::println("{}{}Do you want to quit the program and save the specification file ? [y / n]{}", kCyan, kBold, kReset);
+	std::println("{}{}Do you want to exit the program ? [y / n]{}", kCyan, kBold, kReset);
 
 	/*
 	 * Put the user input to upper cases to allows both lower and upper cases
@@ -466,8 +466,7 @@ void MainFrame::ExitAndSave()
 	switch (user_input[0])
 	{
 		case 'Y':
-			std::println("{}Exiting the program...{}", kGreen, kReset);
-			exit_ = true;
+			SaveFile();
 			break;
 		case 'N':
 			msg_ptr_ = std::make_unique<std::string>("Procedure to exit cancelled...");
@@ -476,6 +475,34 @@ void MainFrame::ExitAndSave()
 			msg_ptr_ = std::make_unique<std::string>("Invalid option, please enters 'y' or 'n'...");
 	}
 }
+
+/**
+ * method that asks if the user want to save the {specification.txt} file, if not then delete it.
+ */
+void MainFrame::SaveFile()
+{
+	std::println("{}{}Do you want to save the specification file ? [y / n]{}", kCyan, kBold, kReset);
+
+	std::string user_input;
+	std::getline(std::cin, user_input);
+	std::ranges::transform(user_input, user_input.begin(), ::toupper);
+
+	switch (user_input[0])
+	{
+	case 'Y':
+		std::println("{}Saving and exiting...{}", kGreen, kReset);
+		exit_ = true;
+		break;
+	case 'N':
+		std::println("{}Abandoning file and exiting...{}", kGreen, kReset);
+		exit_ = true;
+		std::filesystem::remove(kFilename);
+		break;
+	default:
+		msg_ptr_ = std::make_unique<std::string>("Invalid option, please enters 'y' or 'n'...");
+	}
+}
+
 
 
 /**

@@ -133,6 +133,12 @@ private:
 	void ExitAndSave();
 
 	/**
+	 * A private method that asks if the user want to save the {specification.txt} file,
+	 *		if not then delete it.
+	 */
+	void SaveFile();
+
+	/**
 	 * A private static method that simply clean the output of the console
 	 *		on all platforms.
 	 */
