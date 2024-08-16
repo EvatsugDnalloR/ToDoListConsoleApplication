@@ -33,6 +33,6 @@ This project uses C++ 23 features, so please make sure that your compiler or IDE
 
 ## Future plan for further feature
 - [x] Prettier console UI.
-- [ ] Make the program to be able to choose to save the specification.txt file or not.
+- [x] Make the program to be able to choose to save the specification.txt file or not.
 - [ ] UndoRedo feature (probably through Command design pattern)
 - [ ] ... (more to be added)
