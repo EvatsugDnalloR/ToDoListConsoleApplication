@@ -1,25 +1,56 @@
 #include "UndoRedo.h"
 
+/**
+ * Check if there's any command that is available to undo.
+ *
+ * @return	{!undo_stack.empty()}
+ */
 bool UndoRedo::CanUndo() const
 {
 	return !undo_stack_.empty();
 }
 
+/**
+ * Check if there's any command that is available to redo.
+ *
+ * @return	{!redo_stack.empty()}
+ */
 bool UndoRedo::CanRedo() const
 {
 	return !redo_stack_.empty();
 }
 
+/**
+ * Adds given command ti te do-history.
+ * If the command was not yet executed, then it is first executed.
+ * Redo stack will be cleared.
+ *
+ * @param command	the command to incorporate
+ * @post {command->GetExecuted() == true}
+ * @post {redo_stack_.empty() == true}
+ */
 void UndoRedo::Did(std::unique_ptr<Command> command)
 {
 	if (!command->GetExecuted())
 	{
 		command->Execute();
 	}
+
 	undo_stack_.push(std::move(command));
+
+	// assign a new empty stack for {redo_stack_} to clear it
 	redo_stack_ = std::stack<std::unique_ptr<Command>>();
 }
 
+/**
+ * Undo the most recent done command, optionally allowing it
+ *   to be redone.
+ *
+ * @param redoable	whether to allow redo
+ * @pre {CanUndo() == true}
+ * @throw runtime_error	if {CanUndo() != true}
+ * @post {command->GetExecuted() == false}
+ */
 void UndoRedo::Undo(const bool redoable)
 {
 	if (!CanUndo())
@@ -39,6 +70,13 @@ void UndoRedo::Undo(const bool redoable)
 	}
 }
 
+/**
+ * Redo the most recent command.
+ *
+ * @pre {CanRedo() == true}
+ * @throw runtime_error	if {CanRedo() != true}
+ * @post {command->GetExecuted() == true}
+ */
 void UndoRedo::Redo()
 {
 	if (!CanRedo())
@@ -50,6 +88,3 @@ void UndoRedo::Redo()
 	command->Execute();
 	undo_stack_.push(std::move(command));
 }
-
-
-
