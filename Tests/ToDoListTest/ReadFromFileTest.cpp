@@ -1,6 +1,6 @@
 #include <array>
-#include "pch.h"
-#include "../ToDoList/ReadFromFile.h"
+#include "../pch.h"
+#include "../../ToDoList/ReadFromFile.h"
 
 const static std::string kBasePath{ "test_src/read_from_file/" };
 

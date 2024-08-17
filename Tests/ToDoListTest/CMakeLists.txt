@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.20.2)
 project(ToDoListTest)
 
 set(ToDoListTest_Src
-    pch.h
+    ${CMAKE_SOURCE_DIR}/Tests/pch.h
     ToDoTest.cpp
     ReadFromFileTest.cpp
     WriteToFileTest.cpp

@@ -14,9 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(todolist main.cpp)
 
 add_subdirectory (ToDoList)
-add_subdirectory (ToDoListTest)
 add_subdirectory (Command)
-add_subdirectory (CommandTest)
+add_subdirectory (Tests)
 
 target_link_libraries(todolist ToDoList Command)
 

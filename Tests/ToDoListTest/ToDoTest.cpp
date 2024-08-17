@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "../ToDoList/ToDo.h"
+#include "../pch.h"
+#include "../../ToDoList/ToDo.h"
 
 /**
  * Test if ToDo struct can be properly printed.
