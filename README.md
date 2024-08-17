@@ -6,7 +6,7 @@ A robust C++ application functioned as a ToDo List application with console user
 - Save and load ToDo items from a specification file
 - Unit tests for all testable methods in every class
 
-## UML Diagrams (Early Design)
+## UML Diagrams
 
 ### Use Case Diagram
 ![use_case_diagram](/uml_diagrams/images/use_case_diagram.png)
@@ -14,7 +14,7 @@ A robust C++ application functioned as a ToDo List application with console user
 ### Activity Diagram
 ![activity_diagram](/uml_diagrams/images/activity_diagram.png)
 
-### Class Diagram
+### Class Diagram (not complete...)
 ![class_diagram](/uml_diagrams/images/class_diagram.png)
 
 ## Note
