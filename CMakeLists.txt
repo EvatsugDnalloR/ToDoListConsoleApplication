@@ -15,8 +15,10 @@ add_executable(todolist main.cpp)
 
 add_subdirectory (ToDoList)
 add_subdirectory (ToDoListTest)
+add_subdirectory (Command)
+add_subdirectory (CommandTest)
 
-target_link_libraries(todolist ToDoList)
+target_link_libraries(todolist ToDoList Command)
 
 if (NOT googletest) # is googletest defined if already built?
 	include(FetchContent)
