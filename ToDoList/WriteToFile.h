@@ -44,6 +44,21 @@ public:
 	 */
 	static void ModifyToDoMsg(size_t chosen_line, std::string msg, const std::string& filename);
 
+	/**
+	 * Private auxiliary vector that contains each line of the {filename} txt.
+	 * @param filename	the txt file that should be split and put into the vector
+	 * @return	a vector that contains each line of the {filename} txt
+	 */
+	static auto GetLines(const std::string& filename) -> std::vector<std::string>;
+
+	/**
+	 * Private auxiliary method that takes the modified version of each line of the ToDos
+	 *		as a vector, and write back to the original {filename} txt.
+	 * @param filename	the txt file that should be written in
+	 * @param lines		the modified version of each line of ToDos
+	 */
+	static void ModifyFile(const std::string& filename, const std::vector<std::string>& lines);
+
 private:
 	/**
 	 * Check if the {input} string contains any '#' character.
@@ -62,19 +77,4 @@ private:
 	 * @param file	the file that we want to open and write to
 	 */
 	static void CheckIsOpen(const std::ofstream& file);
-
-	/**
-	 * Private auxiliary vector that contains each line of the {filename} txt.
-	 * @param filename	the txt file that should be split and put into the vector
-	 * @return	a vector that contains each line of the {filename} txt
-	 */
-	static auto GetLines(const std::string& filename) -> std::vector<std::string>;
-
-	/**
-	 * Private auxiliary method that takes the modified version of each line of the ToDos
-	 *		as a vector, and write back to the original {filename} txt.
-	 * @param filename	the txt file that should be written in
-	 * @param lines		the modified version of each line of ToDos
-	 */
-	static void ModifyFile(const std::string& filename, const std::vector<std::string>& lines);
 };
