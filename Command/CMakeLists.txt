@@ -7,6 +7,8 @@ set(Command_Src
 	Command.cpp
 	AddToDoCommand.h
 	AddToDoCommand.cpp
+	DeleteToDoCommand.h
+	DeleteToDoCommand.cpp
 )
 
 add_library(${PROJECT_NAME} ${Command_Src})
