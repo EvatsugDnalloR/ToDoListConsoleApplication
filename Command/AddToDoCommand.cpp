@@ -77,7 +77,8 @@ void AddToDoCommand::Execute()
 /**
  * Revert the AddToDo operation.
  *
- * @throw runtime_error	if the {filename} txt cannot be opened correctly
+ * @throw runtime_error	if the txt file doesn't exist
+ * @throw runtime_error if the txt file cannot be opened correctly
  */
 void AddToDoCommand::Revert()
 {

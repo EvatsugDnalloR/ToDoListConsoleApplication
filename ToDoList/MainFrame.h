@@ -12,6 +12,9 @@
 #include "ReadFromFile.h"
 #include "WriteToFile.h"
 #include "ToDo.h"
+#include "../Command/UndoRedo.h"
+#include "../Command/AddToDoCommand.h"
+#include "../Command/DeleteToDoCommand.h"
 
 // ANSI escape codes for colors
 const static std::string kReset = "\033[0m";

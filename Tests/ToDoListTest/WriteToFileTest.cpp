@@ -3,10 +3,12 @@
 #include "../../ToDoList/ReadFromFile.h"
 #include "../../ToDoList/WriteToFile.h"
 
+// TODO: add test for GetLines and ModifyFile method from WriteToFile class
+
 const static std::string kBasePath{ "test_src/write_to_file/" };
 
 /**
- * Test if AddToDo can append a ToDo message to an empty file.
+ * Test if AddToDo can append a To_Do message to an empty file.
  */
 TEST(AddToDo, SuccessEmptyAppend)
 {
@@ -20,8 +22,8 @@ TEST(AddToDo, SuccessEmptyAppend)
 }
 
 /**
- * Test if AddToDo can append a ToDo message to a file already contains
- *		some ToDo messages.
+ * Test if AddToDo can append a To_Do message to a file already contains
+ *		some To_Do messages.
  */
 TEST(AddToDo, SuccessNotEmptyAppend)
 {
@@ -62,7 +64,7 @@ TEST(AddToDo, InputContiansSharp)
 }
 
 /**
- * Test if DeleteToDo can delete a single ToDo from some ToDos.
+ * Test if DeleteToDo can delete a single To_Do from some ToDos.
  */
 TEST(DeleteToDo, SimpleDeletion)
 {
@@ -92,7 +94,7 @@ TEST(DeleteToDo, ComplexDeletion)
 }
 
 /**
- * Test if DeleteToDo can throw an exception if the target line of ToDo
+ * Test if DeleteToDo can throw an exception if the target line of To_Do
  *		doesn't exist.
  */
 TEST(DeleteToDo, LineNotExist)
@@ -132,7 +134,7 @@ TEST(MarkAsDone, SuccessMarking)
 }
 
 /**
- * Test if MarkAsDone can throw an exception if the target line of ToDo
+ * Test if MarkAsDone can throw an exception if the target line of To_Do
  *		does not contain any '#' character.
  */
 TEST(MarkAsDone, InvalidToDo)
@@ -145,7 +147,7 @@ TEST(MarkAsDone, InvalidToDo)
 }
 
 /**
- * Test if MarkAsDone can throw an exception if the target line of ToDo
+ * Test if MarkAsDone can throw an exception if the target line of To_Do
  *		does not exist.
  */
 TEST(MarkAsDone, LineNotExist)
@@ -170,7 +172,7 @@ TEST(MarkAsDone, FileNotExist)
 }
 
 /**
- * Test if ModifyToDoMsg can modify the message of a single ToDo.
+ * Test if ModifyToDoMsg can modify the message of a single To_Do.
  */
 TEST(ModifyToDoMsg, SingleModification)
 {
@@ -231,7 +233,7 @@ TEST(ModifyToDoMsg, MsgContiansSharp)
 }
 
 /**
- * Test if ModifyToDoMsg can throw an exception if the target line of ToDo
+ * Test if ModifyToDoMsg can throw an exception if the target line of To_Do
  *		does not have a '#' character.
  */
 TEST(ModifyToDoMsg, ToDoLineInvalid)
@@ -245,7 +247,7 @@ TEST(ModifyToDoMsg, ToDoLineInvalid)
 }
 
 /**
- * Test if ModifyToDoMsg can throw an exception if the target line of ToDo
+ * Test if ModifyToDoMsg can throw an exception if the target line of To_Do
  *		does not exist.
  */
 TEST(ModifyToDoMsg, LineNotExist)
