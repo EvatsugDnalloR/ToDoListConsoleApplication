@@ -241,7 +241,7 @@ void MainFrame::HandleDeleteToDo()
  *		input should be integers, and it should be separated by comma.
  * @pre  {user_input} should only contain integers and commas
  * @pre  {user_input} should not contain any duplicated integer
- * @pre  \forall {i} \in {numbers} : {i} \in {1, ... , {to_do_s_}.size()}
+ * @pre  \forall {i} \in {numbers} : {i} \in {0, ... , {to_do_s_}.size() - 1}
  * @param user_input	self explained...
  * @throw invalid_argument	if there exists any character or float in {user_input}
  * @throw invalid_argument	if the integers in {user_input} are not unique
@@ -279,11 +279,11 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
 			throw std::invalid_argument("Duplicate number found: " + token);
 		}
 
-		numbers.push_back(number);
+		numbers.push_back(number - 1);
 	}
 
 	std::ranges::sort(numbers);
-	if (numbers.front() < 1 || numbers.back() > to_do_s_.size())
+	if (numbers.front() < 0 || numbers.back() >= to_do_s_.size())
 	{
 		throw std::invalid_argument("Some selected numbers doesn't exists, please choose from the list.");
 	}
@@ -306,7 +306,7 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
  */
 void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
 {
-	int deviation{ 1 };
+	int deviation{};
 	for (const auto number : to_be_deleted)
 	{
 		/*

@@ -17,7 +17,7 @@ TEST(TakingMultiParam, GeneralCase1)
 		std::format("{}{}", kBasePath, filename))));
 
 	const std::vector<int> result{ main_frame.TakingMultiParam("3, 2, 1") };
-	constexpr std::array expected{ 1, 2, 3 };
+	constexpr std::array expected{ 0, 1, 2 };
 	for (int i = 0; i < result.size(); i++)
 	{
 		EXPECT_EQ(expected.at(i), result.at(i));
@@ -34,7 +34,7 @@ TEST(TakingMultiParam, GeneralCase2)
 		std::format("{}{}", kBasePath, filename))));
 
 	const std::vector<int> result{ main_frame.TakingMultiParam("1,      3,   4") };
-	constexpr std::array expected{ 1, 3, 4 };
+	constexpr std::array expected{ 0, 2, 3 };
 	for (int i = 0; i < result.size(); i++)
 	{
 		EXPECT_EQ(expected.at(i), result.at(i));
