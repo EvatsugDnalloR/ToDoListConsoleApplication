@@ -6,6 +6,7 @@ set(CommandTest_Src
 	${CMAKE_SOURCE_DIR}/Tests/pch.h
 	UndoRedoTest.cpp
 	AddToDoCommandTest.cpp
+	DeleteToDoCommandTest.cpp
 )
 
 add_executable(${PROJECT_NAME} ${CommandTest_Src})
