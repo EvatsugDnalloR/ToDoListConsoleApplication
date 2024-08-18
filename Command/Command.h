@@ -7,12 +7,14 @@ class Command
 	bool executed_;
 
 public:
+	
+
 	/**
 	 * Constructs a command for a given receiver.
 	 *
 	 * @param executed  initial execution state
 	 */
-	explicit Command(const bool executed);
+	explicit Command(bool executed);
 
 	/** Default destructor made in virtual for inheritance.     */
     virtual ~Command() = default;
@@ -54,6 +56,13 @@ public:
 	 * @return  {this->executed_}
 	 */
 	[[nodiscard]] bool GetExecuted() const;
+
+	/**
+	 * A public setter for the execution state {executed_}.
+	 *
+	 * @param executed	a boolean indicating the execution state
+	 */
+	void SetExecuted(bool executed);
 
 	/** Execute the command, will be overridden by a concrete command.	 */
 	virtual void Execute();

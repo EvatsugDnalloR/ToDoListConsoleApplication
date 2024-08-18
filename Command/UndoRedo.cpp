@@ -21,7 +21,7 @@ bool UndoRedo::CanRedo() const
 }
 
 /**
- * Adds given command ti te do-history.
+ * Adds given command to the do-history.
  * If the command was not yet executed, then it is first executed.
  * Redo stack will be cleared.
  *

@@ -1,5 +1,7 @@
 #include "Command.h"
 
+
+
 /**
  * Constructs a command for a given receiver.
  *
@@ -19,7 +21,7 @@ Command& Command::operator=(const Command& other)
 {
 	if (this != &other) 
 	{
-		executed_ = other.executed_();
+		executed_ = other.GetExecuted();
 	}
 	return *this;
 }
@@ -29,9 +31,9 @@ Command& Command::operator=(const Command& other)
  *
  * @param other     the reference to the reference of the other {Command} object passed in
  */
-Command::Command(Command&& other) noexcept : executed_(other.executed_())
+Command::Command(Command&& other) noexcept : executed_(other.GetExecuted())
 {
-	other.executed_ = false;
+	other.SetExecuted(false);
 }
 
 /**
@@ -43,8 +45,8 @@ Command::Command(Command&& other) noexcept : executed_(other.executed_())
 Command& Command::operator=(Command&& other) noexcept
 {
 	if (this != &other) {
-		executed_ = other.executed_();
-		other.executed_ = false;
+		executed_ = other.GetExecuted();
+		other.SetExecuted(false);
 	}
 	return *this;
 }
@@ -57,6 +59,16 @@ Command& Command::operator=(Command&& other) noexcept
 bool Command::GetExecuted() const
 {
 	return executed_;
+}
+
+/**
+ * A public setter for the execution state {executed_}.
+ *
+ * @param executed	a boolean indicating the execution state
+ */
+void Command::SetExecuted(const bool executed)
+{
+	executed_ = executed;
 }
 
 /**

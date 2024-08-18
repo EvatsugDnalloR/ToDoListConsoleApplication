@@ -12,6 +12,8 @@ set(ToDoListTest_Src
 
 add_executable(${PROJECT_NAME} ${ToDoListTest_Src})
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Tests)
+
 target_link_libraries(${PROJECT_NAME} 
 	ToDoList 
 	gtest_main
@@ -24,7 +26,7 @@ add_custom_command(
     TARGET ${PROJECT_NAME} 
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/ToDoListTest/test_src $<TARGET_FILE_DIR:${PROJECT_NAME}>/test_src
+    ${CMAKE_SOURCE_DIR}/Tests/ToDoListTest/test_src $<TARGET_FILE_DIR:${PROJECT_NAME}>/test_src
 )
 
 # Add a custom command to clean the test_src folder

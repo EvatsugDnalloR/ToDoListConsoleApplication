@@ -10,6 +10,8 @@ set(CommandTest_Src
 
 add_executable(${PROJECT_NAME} ${CommandTest_Src})
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Tests)
+
 target_link_libraries(${PROJECT_NAME} 
 	Command
 	ToDoList
