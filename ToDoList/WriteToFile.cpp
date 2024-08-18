@@ -22,7 +22,7 @@ void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
 	std::ofstream outfile(filename, std::ios_base::app);
 	CheckIsOpen(outfile);
 
-	outfile << std::format("{}#0\n", std::move(input_todo));		
+	outfile << std::format("{}#0\n", std::move(input_todo));
 
 	outfile.close();
 }

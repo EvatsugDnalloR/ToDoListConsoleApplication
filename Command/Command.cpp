@@ -1,7 +1,5 @@
 #include "Command.h"
 
-
-
 /**
  * Constructs a command for a given receiver.
  *

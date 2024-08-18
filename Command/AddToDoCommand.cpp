@@ -1,6 +1,16 @@
 #include "AddToDoCommand.h"
 
 /**
+ * A public setter of {user_input_} variable for unit test purpose.
+ *
+ * @param user_input	user input string
+ */
+void AddToDoCommand::SetUserInput(const std::string& user_input)
+{
+	user_input_ = user_input;
+}
+
+/**
  * Construct the user input.
  *
  * @param input		the actual input from the user
@@ -73,6 +83,7 @@ void AddToDoCommand::Revert()
 {
 	Command::Revert();
 	std::vector lines{ WriteToFile::GetLines(kFilename) };
+
 	//delete the last element of all lines, which should be the last added To_Do
 	lines.pop_back();
 	WriteToFile::ModifyFile(kFilename, lines);

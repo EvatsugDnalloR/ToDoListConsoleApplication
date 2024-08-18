@@ -29,7 +29,7 @@ bool UndoRedo::CanRedo() const
  * @post {command->GetExecuted() == true}
  * @post {redo_stack_.empty() == true}
  */
-void UndoRedo::Did(std::unique_ptr<Command> command)
+void UndoRedo::Did(std::shared_ptr<Command> command)
 {
 	if (!command->GetExecuted())
 	{
@@ -39,7 +39,7 @@ void UndoRedo::Did(std::unique_ptr<Command> command)
 	undo_stack_.push(std::move(command));
 
 	// assign a new empty stack for {redo_stack_} to clear it
-	redo_stack_ = std::stack<std::unique_ptr<Command>>();
+	redo_stack_ = std::stack<std::shared_ptr<Command>>();
 }
 
 /**
@@ -66,7 +66,7 @@ void UndoRedo::Undo(const bool redoable)
 	}
 	else
 	{
-		redo_stack_ = std::stack<std::unique_ptr<Command>>();
+		redo_stack_ = std::stack<std::shared_ptr<Command>>();
 	}
 }
 

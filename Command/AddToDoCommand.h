@@ -1,6 +1,6 @@
 #pragma once
 #include "Command.h"
-#include "ReadFromFile.h"
+#include "../ToDoList/ReadFromFile.h"
 #include "../ToDoList/WriteToFile.h"
 
 /**
@@ -12,6 +12,13 @@ class AddToDoCommand final : public Command
 	std::string user_input_;
 
 public:
+	/**
+	 * A public setter of {user_input_} variable for unit test purpose.
+	 *
+	 * @param user_input	user input string
+	 */
+	void SetUserInput(const std::string& user_input);
+
 	/**
 	 * Construct the user input.
 	 *

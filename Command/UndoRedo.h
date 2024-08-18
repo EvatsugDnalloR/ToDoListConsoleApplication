@@ -10,13 +10,13 @@ class UndoRedo
 	 * for undo purpose.
 	 * Initialised to empty.
 	 */
-	std::stack<std::unique_ptr<Command>> undo_stack_{};
+	std::stack<std::shared_ptr<Command>> undo_stack_{};
 
 	/** Stack that stores pointer to {Command} object (for polymorphism)
 	 * for redo purpose.
 	 * Initialised to empty.
 	 */
-	std::stack<std::unique_ptr<Command>> redo_stack_{};
+	std::stack<std::shared_ptr<Command>> redo_stack_{};
 
 public:
 	/** Default constructor that do nothing. 	 */
@@ -42,7 +42,7 @@ public:
 	 *
 	 * @param command	the command to incorporate
 	 */
-	void Did(std::unique_ptr<Command> command);
+	void Did(std::shared_ptr<Command> command);
 
 	/**
 	 * Undo the most recent done command, optionally allowing it
