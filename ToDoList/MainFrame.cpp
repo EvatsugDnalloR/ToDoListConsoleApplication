@@ -368,7 +368,7 @@ void MainFrame::HandleMarkAsDone()
 		{
 			for (const auto& chosen_number : chosen_numbers)
 			{
-				WriteToFile::MarkAsDone(chosen_number - 1, kFilename);
+				WriteToFile::MarkAsDone(chosen_number, kFilename);
 			}
 		}
 		catch (const std::invalid_argument& e)
