@@ -5,7 +5,7 @@
 const static std::string kBasePath{ "test_src/read_from_file/" };
 
 /**
- * Test if a string containing one ToDo is recognised successfully.
+ * Test if a string containing one To_Do is recognised successfully.
  */
 TEST(GetToDos, SingleToDo)
 {
@@ -20,7 +20,7 @@ TEST(GetToDos, SingleToDo)
 }
 
 /**
- * Test if a string containing multiple ToDos is able to be recognised successfully.
+ * Test if a string containing multiple To_Do_s is recognised successfully.
  */
 TEST(GetToDos, MultiToDos)
 {
@@ -59,7 +59,9 @@ TEST(GetToDos, EmptyString)
 TEST(GetToDos, ExceptionCase)
 {
 	// ReSharper disable once StringLiteralTypo
-	const std::string wrong_msg{ "jdfnehfijfuwh  efef" };
+	const std::string wrong_msg{ "jdfnehfijfuwh"
+		// ReSharper disable once StringLiteralTypo
+							  "  efef" };
 	const std::string wrong_sharp_msg{ "This is #a message#0." };
 	const std::string missing_boolean{ "This is a msg.#\nThis is the next message#1" };
 	const std::string missing_sharp{ "This is a message .0" };

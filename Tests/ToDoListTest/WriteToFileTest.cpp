@@ -3,8 +3,6 @@
 #include "../../ToDoList/ReadFromFile.h"
 #include "../../ToDoList/WriteToFile.h"
 
-// TODO: add test for GetLines and ModifyFile method from WriteToFile class
-
 const static std::string kBasePath{ "test_src/write_to_file/" };
 
 /**
@@ -271,4 +269,132 @@ TEST(ModifyToDoMsg, FileNotExist)
 		"some modification...",
 		std::format("{}{}", kBasePath, filename)),
 		std::runtime_error);
+}
+
+/**
+ * Test if GetLines can correctly put each line of the txt file into a vector.
+ */
+TEST(GetLines, GeneralCase1)
+{
+	const std::string filename{ "get_lines_1.txt" };
+
+	const std::vector expected{
+		"This is a first line #1",
+		"A second line#0",
+		"Third line.......",
+		"fourth one..."
+	};
+
+	const std::vector actual{ WriteToFile::GetLines(
+		std::format("{}{}", kBasePath, filename))
+	};
+
+	for (size_t i{}; i < actual.size(); i++)
+	{
+		EXPECT_EQ(expected.at(i), actual.at(i));
+	}
+}
+
+/**
+ * Test if GetLines can correctly put each line of the txt file into a vector.
+ */
+TEST(GetLines, GeneralCase2)
+{
+	const std::string filename{ "get_lines_2.txt" };
+
+	const std::vector expected{
+		// ReSharper disable once StringLiteralTypo
+		"jsdbfjksbefesbf",
+		// ReSharper disable once StringLiteralTypo
+		"ajksdhfkjsdfsd",
+		// ReSharper disable once StringLiteralTypo
+		"ejkfbsekfnsejkf",
+		// ReSharper disable once StringLiteralTypo
+		"sejkfsefbesjbf",
+		// ReSharper disable once StringLiteralTypo
+		"skefbsejkfbsekj"
+	};
+
+	const std::vector actual{ WriteToFile::GetLines(
+		std::format("{}{}", kBasePath, filename))
+	};
+
+	for (size_t i{}; i < actual.size(); i++)
+	{
+		EXPECT_EQ(expected.at(i), actual.at(i));
+	}
+}
+
+/**
+ * Test if GetLines can throw an exception if the target file does not exist.
+ */
+TEST(GetLines, ExceptionCase)
+{
+	const std::string filename{ "does not exist" };
+
+	EXPECT_THROW(auto vector{ WriteToFile::GetLines(
+		std::format("{}{}", kBasePath, filename))
+		}, 
+		std::runtime_error);
+}
+
+/**
+ * Test if ModifyFile can correctly modify an empty file.
+ */
+TEST(ModifyFile, EmptyFileModification)
+{
+	const std::string filename{ "modify_file_1.txt" };
+	const std::string input1{ "This is a message" };
+	const std::string input2{ "This is another message##1" };
+	const std::string input3{ "This is the last message...." };
+
+	WriteToFile::ModifyFile(std::format("{}{}", kBasePath, filename),
+		[input1, input2, input3]
+			{
+				const std::vector lines{ input1, input2, input3 };
+				return lines;
+			}());
+
+	EXPECT_EQ(ReadFromFile::FileToString(
+		std::format("{}{}", kBasePath, filename)),
+		std::format("{}\n{}\n{}\n", input1, input2, input3));
+}
+
+/**
+ * Test if ModifyFile can correctly modify a file that is already filled
+ *   with some texts, and this file should be directly overriden (i.e.
+ *   no original information left).
+ */
+TEST(ModifyFile, FilledFileModification)
+{
+	const std::string filename{ "modify_file_2.txt" };
+	const std::string input1{ "This is a message" };
+	const std::string input2{ "This is another message##1" };
+	const std::string input3{ "This is the last message...." };
+	// ReSharper disable once StringLiteralTypo
+	const std::string input4{ "kdshfijfiesfsief" };
+	// ReSharper disable once StringLiteralTypo
+	const std::string input5{ "sedfhsiefbnisehfsef" };
+	// ReSharper disable once StringLiteralTypo
+	const std::string input6{ "sjkfseifnsefihsef" };
+
+	WriteToFile::ModifyFile(std::format("{}{}", kBasePath, filename),
+		[input1, input2, input3, input4, input5, input6]
+		{
+			const std::vector lines{
+				input1,
+				input2,
+				input3,
+				input4,
+				input5
+				, input6
+			};
+			return lines;
+		}());
+
+	EXPECT_EQ(ReadFromFile::FileToString(
+		std::format("{}{}", kBasePath, filename)),
+		std::format("{}\n{}\n{}\n{}\n{}\n{}\n",
+			input1, input2, input3, input4, input5, input6));
+
 }
