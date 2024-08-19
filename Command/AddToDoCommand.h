@@ -26,7 +26,7 @@ public:
 	 */
 	explicit AddToDoCommand(std::string input);
 
-	/** Default destructor for correct inheritance.	 */
+	/** Default destructor for proper inheritance.	 */
 	~AddToDoCommand() override = default;
 
 	/**

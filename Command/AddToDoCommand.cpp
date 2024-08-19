@@ -67,6 +67,8 @@ AddToDoCommand& AddToDoCommand::operator=(AddToDoCommand&& other) noexcept
  *
  * @throw invalid_argument	due to AddToDo method
  * @throw runtime_error	due to AddToDo method
+ * @post {executed_ == true}
+ * @post {user_input_} should be inserted to the back of the txt file
  */
 void AddToDoCommand::Execute()
 {
@@ -75,10 +77,13 @@ void AddToDoCommand::Execute()
 }
 
 /**
- * Revert the AddToDo operation.
+ * Revert the AddToDo operation by deleting the last line of
+ *   the txt file, which should be the most recent inserted message.
  *
  * @throw runtime_error	if the txt file doesn't exist
  * @throw runtime_error if the txt file cannot be opened correctly
+ * @post {executed_ == false}
+ * @post  the last line of {user_input_} should be deleted
  */
 void AddToDoCommand::Revert()
 {

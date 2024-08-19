@@ -41,8 +41,8 @@ void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
  * @param chosen_line	the line that indicate which To_Do need to be deleted
  * @param filename	the name of the txt file that needs to be written in
  * @throw invalid_argument	if {chosen_line} is out of range
- * @throw runtime_error	if the {filename} txt does not exist or
- *		cannot be opened correctly
+ * @throw runtime_error	if the {filename} txt does not exist
+ * @throw runtime_erorr if the {filename} txt cannot be opened correctly
  * @post the To_Do previously at the {chosen_line} position should
  *		no longer exists in the {filename} txt
  */
