@@ -1,5 +1,5 @@
 #include <memory>
-#include <memory>
+#include "CommandTest.h"
 #include "../pch.h"
 #include "../../Command/AddToDoCommand.h"
 
@@ -9,26 +9,18 @@
  * In this way no problem about multiple tests accessing the same txt file
  *   at the same time occurs.
  */
-class AddToDoCommandTest : public ::testing::Test {
-protected:
-	/** Create the file before each test.	 */
-	void SetUp() override {
-		std::ofstream outfile(kFilename);
-	}
-
-	/** Remove the file after each test.	 */
-	void TearDown() override {
-		std::filesystem::remove(kFilename);
-	}
+class AddToDoCommandTest : public CommandTest
+{
 };
 
 /**
  * Test if AddToDoCommand works as expected when a single user input
  *   To_Do message need to be inserted.
  */
-TEST(AddToDoCommandTest, SingleToDoMsg)
+TEST_F(AddToDoCommandTest, SingleToDoMsg)
 {
 	std::string input{ "This is a ToDo message..." };
+	//std::ofstream outfile(kFilename);
 
 	const auto command = std::make_shared<AddToDoCommand>(input);
 	command->Execute();
@@ -43,7 +35,7 @@ TEST(AddToDoCommandTest, SingleToDoMsg)
  * Test if AddToDoCommand works as expected when multiple user input
  *   To_Do messages need to be inserted.
  */
-TEST(AddToDoCommandTest, MultipleToDoMsg)
+TEST_F(AddToDoCommandTest, MultipleToDoMsg)
 {
 	const std::string input1{ "This is the first ToDo message." };
 	const std::string input2{ "This is the second ToDo message.,.,.,." };
@@ -83,7 +75,7 @@ TEST(AddToDoCommandTest, MultipleToDoMsg)
  *   preconditions of {WriteToFile::AddToDo} method.
  * The exception for the Revert case is similar.
  */
-TEST(AddToDoCommandTest, ExecuteException)
+TEST_F(AddToDoCommandTest, ExecuteException)
 {
 	// invalid argument when the input message contain any '#' character
 	std::string exception_input{ "This input ## is invalid..." };
