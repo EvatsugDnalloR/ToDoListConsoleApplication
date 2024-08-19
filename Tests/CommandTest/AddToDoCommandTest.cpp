@@ -3,12 +3,7 @@
 #include "../pch.h"
 #include "../../Command/AddToDoCommand.h"
 
-/**
- * A class to create setup and teardown process for each AddToDoCommand test,
- *   where each test require a clean "specification.txt" file present.
- * In this way no problem about multiple tests accessing the same txt file
- *   at the same time occurs.
- */
+/** Inherited from CommandTest class, no extra override needed. */
 class AddToDoCommandTest : public CommandTest
 {
 };

@@ -5,6 +5,7 @@ project(CommandTest)
 set(CommandTest_Src
 	${CMAKE_SOURCE_DIR}/Tests/pch.h
 	UndoRedoTest.cpp
+	CommandTest.h
 	AddToDoCommandTest.cpp
 	DeleteToDoCommandTest.cpp
 )
