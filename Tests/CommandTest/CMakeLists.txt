@@ -8,6 +8,8 @@ set(CommandTest_Src
 	CommandTest.h
 	AddToDoCommandTest.cpp
 	DeleteToDoCommandTest.cpp
+	MarkToDoCommandTest.cpp
+	ModifyToDoCommandTest.cpp
 )
 
 add_executable(${PROJECT_NAME} ${CommandTest_Src})

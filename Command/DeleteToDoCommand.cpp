@@ -23,7 +23,6 @@ DeleteToDoCommand& DeleteToDoCommand::operator=(const DeleteToDoCommand& other)
 	{
 		Command::operator=(other);
 		chosen_numbers_ = other.chosen_numbers_;
-		deleted_todos_ = other.deleted_todos_;
 	}
 	return *this;
 }
@@ -35,8 +34,7 @@ DeleteToDoCommand& DeleteToDoCommand::operator=(const DeleteToDoCommand& other)
  */
 DeleteToDoCommand::DeleteToDoCommand(DeleteToDoCommand&& other) noexcept
 	: Command(std::move(other)),
-      chosen_numbers_(std::move(other.chosen_numbers_)),  // NOLINT(bugprone-use-after-move)
-      deleted_todos_(std::move(other.deleted_todos_))  // NOLINT(bugprone-use-after-move)
+      chosen_numbers_(std::move(other.chosen_numbers_))  // NOLINT(bugprone-use-after-move)
 {
 }
 
@@ -50,7 +48,6 @@ DeleteToDoCommand& DeleteToDoCommand::operator=(DeleteToDoCommand&& other) noexc
 	if (this != &other) {
 		Command::operator=(std::move(other));
 		chosen_numbers_ = std::move(other.chosen_numbers_);  // NOLINT(bugprone-use-after-move)
-		deleted_todos_ = std::move(other.deleted_todos_);
 	}
 	return *this;
 }
