@@ -15,7 +15,6 @@ class AddToDoCommandTest : public CommandTest
 TEST_F(AddToDoCommandTest, SingleToDoMsg)
 {
 	std::string input{ "This is a ToDo message..." };
-	//std::ofstream outfile(kFilename);
 
 	const auto command = std::make_shared<AddToDoCommand>(input);
 	command->Execute();

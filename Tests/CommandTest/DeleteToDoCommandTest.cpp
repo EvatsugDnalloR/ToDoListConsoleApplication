@@ -1,6 +1,6 @@
 #include <memory>
 #include "CommandTest.h"
-#include "../CommandTest/pch.h"
+#include "../pch.h"
 #include "../../Command/DeleteToDoCommand.h"
 
 /** A default string that should be written to the specification.txt file. */
