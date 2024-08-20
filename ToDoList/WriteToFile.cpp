@@ -121,11 +121,11 @@ void WriteToFile::MarkAsDone(const size_t chosen_line, const std::string& filena
  * @param chosen_line	the line that indicate which To_Do message need to be modified
  * @param msg	the message that will be parsed in
  * @param filename	the txt file that needs to be written in
- * @throw runtime_error	if the {filename} txt does not exist or
- *		cannot be opened correctly, or the To_Do message
- *		doesn't contain a '#' character
+ * @throw runtime_error	if the {filename} txt does not exist
+ * @throw runtime_error if the {filename} txt cannot be opened correctly
+ * @throw runtime_error if the To_Do message doesn't contain a '#' character
  * @throw invalid_argument	if {chosen_line} is out of range
- *		or the {msg} string contains a '#' character
+ * @throw invalid_argument	if the {msg} string contains a '#' character
  * @post the To_Do at the {chosen_line} position should contain the new message of {msg},
  *		and having the same done or not done condition as before
  */

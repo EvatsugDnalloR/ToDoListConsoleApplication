@@ -1,5 +1,11 @@
 #include "ModifyToDoCommand.h"
 
+/**
+ * Default constructor to initialise {chosen_number_} and {to_do_msg}.
+ *
+ * @param chosen_number		the chosen index of To_Do message to be modified
+ * @param to_do_msg		the message to replace the original To_Do message
+ */
 ModifyToDoCommand::ModifyToDoCommand(const int& chosen_number, std::string to_do_msg) :
 	Command(false),
 	chosen_number_(chosen_number),
@@ -7,6 +13,12 @@ ModifyToDoCommand::ModifyToDoCommand(const int& chosen_number, std::string to_do
 {
 }
 
+/**
+ * Copy assignment operator.
+ *
+ * @param other		reference to other ModifyToDoCommand object
+ * @return	{*this}
+ */
 ModifyToDoCommand& ModifyToDoCommand::operator=(const ModifyToDoCommand& other)
 {
 	if (this != &other) {
@@ -17,6 +29,11 @@ ModifyToDoCommand& ModifyToDoCommand::operator=(const ModifyToDoCommand& other)
 	return *this;
 }
 
+/**
+ * Move constructor.
+ *
+ * @param other		reference to the reference to other ModifyToDoCommand object
+ */
 ModifyToDoCommand::ModifyToDoCommand(ModifyToDoCommand&& other) noexcept
 	: Command(std::move(other)),
 	  chosen_number_(other.chosen_number_),  // NOLINT(bugprone-use-after-move)
@@ -24,6 +41,12 @@ ModifyToDoCommand::ModifyToDoCommand(ModifyToDoCommand&& other) noexcept
 {
 }
 
+/**
+ * Move assignment operator.
+ *
+ * @param other		reference to the reference to other ModifyToDoCommand object
+ * @return	{*this}
+ */
 ModifyToDoCommand& ModifyToDoCommand::operator=(ModifyToDoCommand&& other) noexcept
 {
 	if (this != &other) 
@@ -35,6 +58,18 @@ ModifyToDoCommand& ModifyToDoCommand::operator=(ModifyToDoCommand&& other) noexc
 	return *this;
 }
 
+/**
+ * Execute the ModifyToDoCommand and backup the original To_Do message.
+ *
+ * @pre  {chosen_number_} is in the range of {to_do_s_} vector in
+ *   the MainFrame class (cannot be violated due to the checks before
+ *   passing in the parameter)
+ * @throw runtime_error due to ModifyToDoMsg method
+ * @throw invalid_argument due to ModifyToDoMsg method
+ * @post  {executed_ == true}
+ * @post  the original To_Do message has been replaced by {to_do_msg_}
+ * @post  the done boolean of the original To_Do is not modified
+ */
 void ModifyToDoCommand::Execute()
 {
 	Command::Execute();
@@ -44,6 +79,14 @@ void ModifyToDoCommand::Execute()
 	WriteToFile::ModifyToDoMsg(chosen_number_, to_do_msg_, kFilename);
 }
 
+/**
+ * Revert the ModifyToDoCommand by restoring the old To_Do message.
+ *
+ * @pre	 {executed_ == true}
+ * @throw runtime_error if the txt file does not exist
+ * @post  {executed_ == false}
+ * @post  the To_Do message at index {chosen_number_} is restored to {modified}
+ */
 void ModifyToDoCommand::Revert()
 {
 	Command::Revert();
