@@ -1,7 +1,6 @@
 #include <array>
 #include "../pch.h"
-#include "../../ToDoList/ReadFromFile.h"
-#include "../../ToDoList/WriteToFile.h"
+#include "../../ToDoList/MainFrame.h"
 
 const static std::string kBasePath{ "test_src/write_to_file/" };
 
