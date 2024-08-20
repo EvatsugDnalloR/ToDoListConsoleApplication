@@ -50,7 +50,7 @@ public:
 
 	/**
 	 * Public auxiliary vector that contains each line of the {filename} txt.
-	 * TODO: Move this method to ReadFromFile class
+	 *
 	 * @param filename	the txt file that should be split and put into the vector
 	 * @return	a vector that contains each line of the {filename} txt
 	 */
