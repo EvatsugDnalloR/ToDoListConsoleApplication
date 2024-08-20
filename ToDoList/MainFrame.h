@@ -15,6 +15,8 @@
 #include "../Command/UndoRedo.h"
 #include "../Command/AddToDoCommand.h"
 #include "../Command/DeleteToDoCommand.h"
+#include "../Command/MarkToDoCommand.h"
+#include "../Command/ModifyToDoCommand.h"
 
 // ANSI escape codes for colors
 const static std::string kReset = "\033[0m";
