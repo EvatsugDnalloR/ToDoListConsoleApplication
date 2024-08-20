@@ -5,6 +5,7 @@
  *		TODO: add the UndoRedo feature to the program (perhaps by Command Pattern)
  */
 
+
 /**
  * The constructors that initialises the three variables of MainFrame class.
  */
@@ -96,7 +97,9 @@ void MainFrame::PrintOptions()
 	println("A - Add a ToDo");
 	println("D - Delete any ToDo");
 	println("F - Mark or unmark any ToDo as done");
-	println("M - Modify any ToDo message")	;
+	println("M - Modify any ToDo message");
+	println("U - Undo your previous operation");
+	println("R - Redo your previous operation");
 	println("E - Exit and save");
 	println("-----------------------------");
 }
@@ -154,7 +157,12 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 				HandleModifyMsg();
 			}
 			break;
-
+		case 'U':
+			Undo();
+			break;
+		case 'R':
+			Redo();
+			break;
 		case 'E':
 			ExitAndSave();
 			break;
@@ -175,13 +183,20 @@ void MainFrame::HandleAddToDo()
 
 	try
 	{
-		WriteToFile::AddToDo([]
+		const auto command = std::make_shared<AddToDoCommand>([]
 			{	// lambda function to get the string input
 				std::string user_input;
 				std::getline(std::cin, user_input);
 				return user_input;
-			}(),
-				kFilename);
+			}());
+		undo_redo_.Did(command);
+		// WriteToFile::AddToDo([]
+		// 	{	// lambda function to get the string input
+		// 		std::string user_input;
+		// 		std::getline(std::cin, user_input);
+		// 		return user_input;
+		// 	}(),
+		// 		kFilename);
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -231,7 +246,18 @@ void MainFrame::HandleDeleteToDo()
 
 	if (to_be_continued)
 	{
-		PerformDeletion(to_be_deleted);
+		const auto command = std::make_shared<DeleteToDoCommand>(to_be_deleted);
+		try
+		{
+			undo_redo_.Did(command);
+		}
+		catch (const std::runtime_error& e)
+		{
+			std::println("{}Problem occurs with the specification file...", kRed);
+			std::println("Details: {}{}", e.what(), kReset);
+			exit_ = true;
+			exit_success_ = false;	// quit due to fatal error that the file is corrupted
+		}
 	}
 }
 
@@ -260,6 +286,11 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
 		std::erase(result, ' ');
 		return result;
 	}()};
+
+	if (trimmed_input.empty())
+	{
+		throw std::invalid_argument("The input cannot be empty...");
+	}
 
 	std::stringstream ss(trimmed_input);
 	std::string token;
@@ -364,12 +395,10 @@ void MainFrame::HandleMarkAsDone()
 
 	if (to_be_continued)
 	{
+		const auto command = std::make_shared<MarkToDoCommand>(chosen_numbers);
 		try
 		{
-			for (const auto& chosen_number : chosen_numbers)
-			{
-				WriteToFile::MarkAsDone(chosen_number, kFilename);
-			}
+			undo_redo_.Did(command);
 		}
 		catch (const std::invalid_argument& e)
 		{
@@ -424,12 +453,20 @@ void MainFrame::HandleModifyMsg()
 		std::cout << kGreen << chosen_number << ". " << to_do_s_.at(chosen_number - 1) << kReset << "\n";
 		std::println("{}Please enter the message for replacement:{}", kCyan, kReset);
 
-		std::string todo_msg;
-		std::getline(std::cin, todo_msg);
+		const auto command = std::make_shared<ModifyToDoCommand>(chosen_number - 1,
+			[]
+			{
+				std::string todo_msg;
+				std::getline(std::cin, todo_msg);
+				return todo_msg;
+			}());
+
+		// std::string todo_msg;
+		// std::getline(std::cin, todo_msg);
 
 		try
 		{
-			WriteToFile::ModifyToDoMsg(chosen_number - 1, todo_msg, kFilename);
+			undo_redo_.Did(command);
 		}
 		catch (const std::invalid_argument& e)
 		{
@@ -446,6 +483,35 @@ void MainFrame::HandleModifyMsg()
 		}
 	}
 }
+
+void MainFrame::Undo()
+{
+	try
+	{
+		undo_redo_.Undo(true);
+	}
+	catch (const std::runtime_error& e)
+	{
+		msg_ptr_ = std::make_unique<std::string>(std::format(
+			"Problem occured while undoing...\n"
+			"Details: {}", e.what()));
+	}
+}
+
+void MainFrame::Redo()
+{
+	try
+	{
+		undo_redo_.Redo();
+	}
+	catch (const std::runtime_error& e)
+	{
+		msg_ptr_ = std::make_unique<std::string>(std::format(
+			"Problem occured while redoing...\n"
+			"Details: {}", e.what()));
+	}
+}
+
 
 /**
  * Method that asks if the user want to exit or not, if so then quit the program.

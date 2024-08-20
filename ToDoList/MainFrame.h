@@ -1,6 +1,8 @@
 #pragma once
 #include <algorithm>
 #include <cstdlib>
+#include <conio.h>
+#include <csignal>
 #include <iostream>
 #include <print>
 #include <format>
@@ -9,6 +11,7 @@
 #include <sstream>
 #include <ranges>
 #include <vector>
+#include <windows.h>
 #include "ReadFromFile.h"
 #include "WriteToFile.h"
 #include "ToDo.h"
@@ -45,6 +48,8 @@ class MainFrame
 	 *	If no error message, it should be a {nullptr}.
 	 */
 	std::unique_ptr<std::string> msg_ptr_;
+
+	UndoRedo undo_redo_;
 
 public:
 	/**
@@ -130,6 +135,10 @@ private:
 	 *		call {WriteToFile::ModifyToDoMsg} to complete the operation.
 	 */
 	void HandleModifyMsg();
+
+	void Undo();
+
+	void Redo();
 
 	/**
 	 * A private method that asks if the user want to exit or not, if so then
