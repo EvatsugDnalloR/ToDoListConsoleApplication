@@ -72,7 +72,7 @@ void DeleteToDoCommand::Execute()
 {
 	Command::Execute();
 
-	std::vector lines{ WriteToFile::GetLines(kFilename) };
+	std::vector lines{ ReadFromFile::GetLines(kFilename) };
 	int deviation{};	// initially no deviation
 	for (const auto& num : chosen_numbers_)
 	{
@@ -96,7 +96,7 @@ void DeleteToDoCommand::Revert()
 {
 	Command::Revert();
 
-	std::vector lines{ WriteToFile::GetLines(kFilename) };
+	std::vector lines{ ReadFromFile::GetLines(kFilename) };
 	for (const auto& [index, deleted_msg] : deleted_todos_)
 	{
 		lines.insert(lines.begin() + index, deleted_msg);

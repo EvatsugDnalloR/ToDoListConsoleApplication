@@ -88,7 +88,7 @@ void AddToDoCommand::Execute()
 void AddToDoCommand::Revert()
 {
 	Command::Revert();
-	std::vector lines{ WriteToFile::GetLines(kFilename) };
+	std::vector lines{ ReadFromFile::GetLines(kFilename) };
 
 	//delete the last element of all lines, which should be the last added To_Do
 	lines.pop_back();

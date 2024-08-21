@@ -3,7 +3,7 @@
 #include <vector>
 #include <format>
 #include <fstream>
-#include <filesystem>
+#include "ReadFromFile.h"
 
 /**
  * The class for doing the operation of adding, deleting, modifying or
@@ -48,13 +48,7 @@ public:
 	 */
 	static void ModifyToDoMsg(size_t chosen_line, std::string msg, const std::string& filename);
 
-	/**
-	 * Public auxiliary vector that contains each line of the {filename} txt.
-	 *
-	 * @param filename	the txt file that should be split and put into the vector
-	 * @return	a vector that contains each line of the {filename} txt
-	 */
-	static auto GetLines(const std::string& filename) -> std::vector<std::string>;
+
 
 	/**
 	 * Public auxiliary method that takes the modified version of each line of the ToDos
@@ -72,13 +66,6 @@ private:
 	 * @param input	the input string that should be checked 
 	 */
 	static void FindSharp(const std::string& input);
-
-	/**
-	 * Private auxiliary method that checks if the {filename} exists or not.
-	 *
-	 * @param filename	the txt file that we need to check the existence
-	 */
-	static void CheckExist(const std::string& filename);
 
 	/**
 	 * Private auxiliary method that checks if the {file} can be opened or not.

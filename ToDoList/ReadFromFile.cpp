@@ -104,3 +104,51 @@ std::string ReadFromFile::FileToString(const std::string& filename)
         std::istreambuf_iterator<char>());
     return content;
 }
+
+/**
+ * The auxiliary vector that contains each line of the {filename} txt.
+ *
+ * @pre the {filename} txt exists and can be opened correctly
+ * @param filename	the txt file that needs to be written in
+ * @throw runtime_error	if the {filename} txt doesn't exist
+ * @throw runtime_error if the {filename} txt cannot be opened correctly
+ * @return	a vector that contains each line of the {filename} txt
+ */
+std::vector<std::string> ReadFromFile::GetLines(const std::string& filename)
+{
+    CheckExist(filename);
+
+    // Open the file in input mode
+    std::ifstream infile(filename);
+
+    // ReSharper disable once CommentTypo
+    // check if it's opened, but since {ifstream} CheckIsOpen method can't be reused
+    if (!infile.is_open())
+    {
+        throw std::runtime_error("Unable to open file");
+    }
+
+    std::vector<std::string> lines;
+    std::string line;
+    while (std::getline(infile, line))
+    {
+        lines.push_back(line);
+    }
+    infile.close();
+
+    return lines;
+}
+
+/**
+ * The auxiliary method that checks if the {filename} exists or not.
+ *
+ * @param filename	the txt file that we need to check the existence
+ * @throw runtime_error	if the {filename} doesn't exist
+ */
+void ReadFromFile::CheckExist(const std::string& filename)
+{
+    if (!std::filesystem::exists(filename))
+    {
+        throw std::runtime_error("File does not exist");
+    }
+}

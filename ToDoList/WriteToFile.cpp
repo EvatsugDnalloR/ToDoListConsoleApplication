@@ -18,7 +18,7 @@ void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
 {
 	FindSharp(input_todo);
 
-	CheckExist(filename);
+	ReadFromFile::CheckExist(filename);
 
 	std::ofstream outfile(filename, std::ios_base::app);
 	CheckIsOpen(outfile);
@@ -48,7 +48,7 @@ void WriteToFile::AddToDo(std::string input_todo, const std::string& filename)
  */
 void WriteToFile::DeleteToDo(const size_t chosen_line, const std::string& filename)
 {
-	std::vector lines{ GetLines(filename) };
+	std::vector lines{ ReadFromFile::GetLines(filename) };
 
 	if (chosen_line >= lines.size())
 	{
@@ -81,7 +81,7 @@ void WriteToFile::DeleteToDo(const size_t chosen_line, const std::string& filena
  */
 void WriteToFile::MarkAsDone(const size_t chosen_line, const std::string& filename)
 {
-	std::vector lines{ GetLines(filename) };
+	std::vector lines{ ReadFromFile::GetLines(filename) };
 
 	if (chosen_line >= lines.size())
 	{
@@ -133,7 +133,7 @@ void WriteToFile::ModifyToDoMsg(const size_t chosen_line, std::string msg, const
 {
 	FindSharp(msg);
 
-	std::vector lines{ GetLines(filename) };
+	std::vector lines{ ReadFromFile::GetLines(filename) };
 
 	// Check if the chosen line is within the range
 	if (chosen_line >= lines.size())
@@ -172,21 +172,6 @@ void WriteToFile::FindSharp(const std::string& input)
 }
 
 /**
- * The auxiliary method that checks if the {filename} exists or not.
- *
- * @param filename	the txt file that we need to check the existence
- * @throw runtime_error	if the {filename} doesn't exist
- */
-void WriteToFile::CheckExist(const std::string& filename)
-{
-	if (!std::filesystem::exists(filename))
-	{
-		throw std::runtime_error("File does not exist");
-	}
-}
-
-
-/**
  * The auxiliary method that checks if the {outfile} can be opened or not.
  *
  * @param file	the file that we want to open and write to
@@ -198,40 +183,6 @@ void WriteToFile::CheckIsOpen(const std::ofstream& file)
 	{
 		throw std::runtime_error("Unable to open file");
 	}
-}
-
-/**
- * The auxiliary vector that contains each line of the {filename} txt.
- *
- * @pre the {filename} txt exists and can be opened correctly
- * @param filename	the txt file that needs to be written in
- * @throw runtime_error	if the {filename} txt doesn't exist
- * @throw runtime_error if the {filename} txt cannot be opened correctly
- * @return	a vector that contains each line of the {filename} txt
- */
-std::vector<std::string> WriteToFile::GetLines(const std::string& filename)
-{
-	CheckExist(filename);
-
-	// Open the file in input mode
-	std::ifstream infile(filename);
-
-	// ReSharper disable once CommentTypo
-	// check if it's opened, but since {ifstream} CheckIsOpen method can't be reused
-	if (!infile.is_open())
-	{
-		throw std::runtime_error("Unable to open file");
-	}
-
-	std::vector<std::string> lines;
-	std::string line;
-	while (std::getline(infile, line))
-	{
-		lines.push_back(line);
-	}
-	infile.close();
-
-	return lines;
 }
 
 /**

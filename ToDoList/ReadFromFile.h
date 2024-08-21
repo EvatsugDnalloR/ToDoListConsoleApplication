@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <fstream>
+#include <filesystem>
 #include <sstream>
 #include "ToDo.h"
 
@@ -34,6 +35,21 @@ public:
 	 */
 	static auto FileToString(const std::string& filename) -> std::string;
 
+	/**
+	 * Public auxiliary vector that contains each line of the {filename} txt.
+	 *
+	 * @param filename	the txt file that should be split and put into the vector
+	 * @return	a vector that contains each line of the {filename} txt
+	 */
+	static auto GetLines(const std::string& filename) -> std::vector<std::string>;
+
+	/**
+	 * Private auxiliary method that checks if the {filename} exists or not.
+	 *
+	 * @param filename	the txt file that we need to check the existence
+	 */
+	static void CheckExist(const std::string& filename);
+
 private:
 	/**
 	* Private axillary method to make GetToDos vector function cleaner.
@@ -42,4 +58,6 @@ private:
 	*		will be returned by GetToDos
 	*/
 	static void PushToDo(std::string line, std::vector<ToDo>& todo_vector);
+
+
 };

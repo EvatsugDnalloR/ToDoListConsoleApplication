@@ -74,7 +74,7 @@ void ModifyToDoCommand::Execute()
 {
 	Command::Execute();
 
-	modified_ = WriteToFile::GetLines(kFilename).at(chosen_number_);
+	modified_ = ReadFromFile::GetLines(kFilename).at(chosen_number_);
 
 	WriteToFile::ModifyToDoMsg(chosen_number_, to_do_msg_, kFilename);
 }
@@ -91,7 +91,7 @@ void ModifyToDoCommand::Revert()
 {
 	Command::Revert();
 
-	std::vector lines{ WriteToFile::GetLines(kFilename) };
+	std::vector lines{ ReadFromFile::GetLines(kFilename) };
 
 	lines.at(chosen_number_) = modified_;
 

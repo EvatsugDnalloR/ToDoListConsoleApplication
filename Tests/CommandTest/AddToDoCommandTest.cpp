@@ -22,7 +22,7 @@ TEST_F(AddToDoCommandTest, SingleToDoMsg)
 		std::format("{}#0\n", input));
 
 	command->Revert();
-	EXPECT_TRUE(WriteToFile::GetLines(kFilename).empty());	// should be empty just like initial state
+	EXPECT_TRUE(ReadFromFile::GetLines(kFilename).empty());	// should be empty just like initial state
 }
 
 /**
@@ -61,7 +61,7 @@ TEST_F(AddToDoCommandTest, MultipleToDoMsg)
 
 	command->SetExecuted(true);
 	command->Revert();
-	EXPECT_TRUE(WriteToFile::GetLines(kFilename).empty());
+	EXPECT_TRUE(ReadFromFile::GetLines(kFilename).empty());
 }
 
 /**

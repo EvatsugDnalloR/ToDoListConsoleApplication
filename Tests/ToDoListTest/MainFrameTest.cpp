@@ -42,10 +42,22 @@ TEST(TakingMultiParam, GeneralCase2)
 }
 
 /**
+ * Test if {TakingMultiParam} can throw an exception when the user input is empty.
+ */
+TEST(TakingMultiParam, ExceptionCase1)
+{
+	const std::string filename{ "exception.txt" };
+	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
+		std::format("{}{}", kBasePath, filename))));
+	EXPECT_THROW(std::vector<int> result{ main_frame.TakingMultiParam("") },
+		std::invalid_argument);
+}
+
+/**
  * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *	 non-integer element.
  */
-TEST(TakingMultiParam, ExceptionCase1)
+TEST(TakingMultiParam, ExceptionCase2)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
@@ -58,7 +70,7 @@ TEST(TakingMultiParam, ExceptionCase1)
  * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *	 duplicated integers.
  */
-TEST(TakingMultiParam, ExceptionCase2)
+TEST(TakingMultiParam, ExceptionCase3)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
@@ -71,7 +83,7 @@ TEST(TakingMultiParam, ExceptionCase2)
  * Test if {TakingMultiParam} can throw an exception when the user input contains any
  *   integer that is out of the range of {to_do_s_}.
  */
-TEST(TakingMultiParam, ExceptionCase3)
+TEST(TakingMultiParam, ExceptionCase4)
 {
 	const std::string filename{ "exception.txt" };
 	main_frame.SetToDoS(ReadFromFile::GetToDos(ReadFromFile::FileToString(
