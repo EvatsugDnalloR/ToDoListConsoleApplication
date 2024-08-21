@@ -1,9 +1,10 @@
 # ToDoListConsoleApplication
-A robust C++ application functioned as a ToDo List application with console user-interface. This project serces as a practical exercise for me to implement part of the basic C++ features that i have learned.
+A robust C++ application functioned as a ToDo List application with console user-interface. This project serves as a practical exercise for me to implement part of the basic C++ features that i have learned.
 
 ## Overview
 - Add, delete, modify, and mark ToDo items as done
 - Save and load ToDo items from a specification file
+- Undo or redo the last operation
 - Unit tests for all testable methods in every class
 
 ## UML Diagrams
@@ -34,5 +35,4 @@ This project uses C++ 23 features, so please make sure that your compiler or IDE
 ## Future plan for further feature
 - [x] Prettier console UI.
 - [x] Make the program to be able to choose to save the specification.txt file or not.
-- [ ] UndoRedo feature (probably through Command design pattern)
-- [ ] ... (more to be added)
+- [x] UndoRedo feature (probably through Command design pattern)
