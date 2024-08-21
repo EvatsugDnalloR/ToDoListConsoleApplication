@@ -303,7 +303,7 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
 	}
 
 	std::ranges::sort(numbers);
-	if (numbers.front() < 0 || numbers.back() >= to_do_s_.size())
+	if (numbers.front() < 0 || numbers.back() >= to_do_s_.size())  // NOLINT(clang-diagnostic-sign-compare)
 	{
 		throw std::invalid_argument("Some selected numbers doesn't exists, please choose from the list.");
 	}
@@ -394,6 +394,14 @@ void MainFrame::HandleModifyMsg()
 		msg_ptr_ = std::make_unique<std::string>(std::format(
 			"Problem occurs when entering the number of the ToDo...\n"
 			"Details: {}", e.what()));
+		to_be_continued = false;
+	}
+
+	if (chosen_number <= 0 || chosen_number > to_do_s_.size())  // NOLINT(clang-diagnostic-sign-compare)
+	{
+		msg_ptr_ = std::make_unique<std::string>(std::format(
+			"Problem occurs when entering the number of the ToDo...\n"
+			"Details: chosen number is out of range of ToDo list"));
 		to_be_continued = false;
 	}
 
