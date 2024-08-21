@@ -1,12 +1,6 @@
 #include "MainFrame.h"
 
 /**
- * Further development:
- *		TODO: add the UndoRedo feature to the program (perhaps by Command Pattern)
- */
-
-
-/**
  * The constructors that initialises the three variables of MainFrame class.
  */
 MainFrame::MainFrame()
@@ -76,11 +70,9 @@ void MainFrame::PrintToDos()
 	}
 	else
 	{
-		int count{1};
-		for (const auto& to_do: to_do_s_)
+		for (size_t i{}; i < to_do_s_.size(); i++)
 		{
-			std::cout << count << ". " << to_do << "\n";
-			count++;
+			std::cout << i + 1 << ". " << to_do_s_.at(i) << "\n";
 		}
 	}
 }
@@ -157,12 +149,15 @@ void MainFrame::HandleUserInput(const std::string& user_input)
 				HandleModifyMsg();
 			}
 			break;
+
 		case 'U':
 			Undo();
 			break;
+
 		case 'R':
 			Redo();
 			break;
+
 		case 'E':
 			ExitAndSave();
 			break;
@@ -190,13 +185,6 @@ void MainFrame::HandleAddToDo()
 				return user_input;
 			}());
 		undo_redo_.Did(command);
-		// WriteToFile::AddToDo([]
-		// 	{	// lambda function to get the string input
-		// 		std::string user_input;
-		// 		std::getline(std::cin, user_input);
-		// 		return user_input;
-		// 	}(),
-		// 		kFilename);
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -267,8 +255,9 @@ void MainFrame::HandleDeleteToDo()
  *		input should be integers, and it should be separated by comma.
  * @pre  {user_input} should only contain integers and commas
  * @pre  {user_input} should not contain any duplicated integer
- * @pre  \forall {i} \in {numbers} : {i} \in {0, ... , {to_do_s_}.size() - 1}
+ * @pre  \forall {i} \in {numbers} : {i} \in {1, ... , {to_do_s_}.size()}
  * @param user_input	self explained...
+ * @throw invalid_argument	if {user_input.empty()}
  * @throw invalid_argument	if there exists any character or float in {user_input}
  * @throw invalid_argument	if the integers in {user_input} are not unique
  * @throw invalid_argument	if any line number of To_Do in {numbers} is out of
@@ -280,17 +269,17 @@ void MainFrame::HandleDeleteToDo()
  */
 std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) const
 {
-	const std::string trimmed_input{[user_input]
-	{	// remove all the spaces of the {user_input} for easier checking
-		std::string result = user_input;
-		std::erase(result, ' ');
-		return result;
-	}()};
-
-	if (trimmed_input.empty())
+	if (user_input.empty())
 	{
 		throw std::invalid_argument("The input cannot be empty...");
 	}
+
+	const std::string trimmed_input{[user_input]
+		{	// remove all the spaces of the {user_input} for easier checking
+			std::string result = user_input;
+			std::erase(result, ' ');
+			return result;
+		}()};
 
 	std::stringstream ss(trimmed_input);
 	std::string token;
@@ -310,7 +299,7 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
 			throw std::invalid_argument("Duplicate number found: " + token);
 		}
 
-		numbers.push_back(number - 1);
+		numbers.push_back(number - 1);	// minus 1 for matching the actual index of the {to_do_s} vector
 	}
 
 	std::ranges::sort(numbers);
@@ -320,44 +309,6 @@ std::vector<int> MainFrame::TakingMultiParam(const std::string& user_input) cons
 	}
 
 	return numbers;
-}
-
-/**
- * Auxiliary method that perform the actual deletion of one or multiple To_Do_s selected.
- * Each line number of To_Do message selected is deviated by 1 at first place.
- * With the success deletion of the former To_Do_s, the line number of the
- *	 rest of To_Do_s in the {to_be_deleted} vector will be further deviated
- *	 by 1 (such as formerly {1, 3, 5}, after the deletion of {1}, it should be
- *	 {2, 4} left).
- * @pre  {to_be_deleted} is sorted (cannot be violated due to the TakingDeleteParam function)
- * @pre  all the line number in {to_be_deleted} is in the range of {to_do_s_} (i.e. can be deletable)
- * @param to_be_deleted		the vector that contains all the line number of To_Do_s
- *		that should be deleted
- * @post  all the To_Do_s at the former lines in {to_be_deleted} should be deleted
- */
-void MainFrame::PerformDeletion(const std::vector<int>& to_be_deleted)
-{
-	int deviation{};
-	for (const auto number : to_be_deleted)
-	{
-		/*
-		 * The {invalid_argument} exception from DeleteToDo can be ignored
-		 *		since it has already been dealt with {TakingMultiParam} function.
-		 */
-		try
-		{
-			WriteToFile::DeleteToDo(number - deviation, kFilename);
-		}
-		catch (const std::runtime_error& e)
-		{
-			std::println("{}Problem occurs with the specification file...", kRed);
-			std::println("Details: {}{}", e.what(), kReset);
-			exit_ = true;
-			exit_success_ = false;	// quit due to fatal error that the file is corrupted
-			break;
-		}
-		deviation++;
-	}
 }
 
 /**
@@ -461,9 +412,6 @@ void MainFrame::HandleModifyMsg()
 				return todo_msg;
 			}());
 
-		// std::string todo_msg;
-		// std::getline(std::cin, todo_msg);
-
 		try
 		{
 			undo_redo_.Did(command);
@@ -484,6 +432,9 @@ void MainFrame::HandleModifyMsg()
 	}
 }
 
+/**
+ * A private method that simply perform the Undo feature through {undo_redo_}.
+ */
 void MainFrame::Undo()
 {
 	try
@@ -498,6 +449,9 @@ void MainFrame::Undo()
 	}
 }
 
+/**
+ * A private method that simply perform the Redo feature through {undo_redo_}.
+ */
 void MainFrame::Redo()
 {
 	try

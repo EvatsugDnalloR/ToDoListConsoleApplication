@@ -49,6 +49,11 @@ class MainFrame
 	 */
 	std::unique_ptr<std::string> msg_ptr_;
 
+	/**
+	 * UndoRedo facility which handles execution of all types
+	 *   of commands, and the UndoRedo feature.
+	 * Initialised by default constructor.
+	 */
 	UndoRedo undo_redo_;
 
 public:
@@ -116,13 +121,6 @@ private:
 	void HandleDeleteToDo();
 
 	/**
-	 * A private auxiliary method that perform the actual deletion of
-	 *		one or multiple To_Do_s selected.
-	 * @param to_be_deleted 
-	 */
-	void PerformDeletion(const std::vector<int>& to_be_deleted);
-
-	/**
 	 * A private method that ask the user to select one To_Do, and will
 	 *		mark that To_Do as done or undone accordingly by calling
 	 *		{WriteToFile::MarkAsDone}.
@@ -136,8 +134,10 @@ private:
 	 */
 	void HandleModifyMsg();
 
+	/** A private method that simply perform the Undo feature through {undo_redo_}.  */
 	void Undo();
 
+	/** A private method that simply perform the Redo feature through {undo_redo_}.	 */
 	void Redo();
 
 	/**
