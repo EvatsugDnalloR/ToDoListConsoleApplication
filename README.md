@@ -15,7 +15,7 @@ A robust C++ application functioned as a ToDo List application with console user
 ### Activity Diagram
 ![activity_diagram](/uml_diagrams/images/activity_diagram.png)
 
-### Class Diagram (not complete...)
+### Class Diagram
 ![class_diagram](/uml_diagrams/images/class_diagram.png)
 
 ## Note
