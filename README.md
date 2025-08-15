@@ -5,7 +5,7 @@ A robust C++ application functioned as a ToDo List application with console user
 - Add, delete, modify, and mark ToDo items as done
 - Save and load ToDo items from a specification file
 - Undo or redo the last operation
-- Unit tests for all testable methods in every class
+- Unit tests for all testable methods
 
 ## UML Diagrams
 
