@@ -7,7 +7,7 @@ A robust C++ application functioned as a ToDo List application with console user
 - Undo or redo the last operation
 - Unit tests for all testable methods
 
-## UML Diagrams
+## Design
 
 ### Use Case Diagram
 ![use_case_diagram](/uml_diagrams/images/use_case_diagram.png)
